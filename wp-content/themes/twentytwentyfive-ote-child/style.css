@@ -736,6 +736,11 @@ Use it to make something cool, have fun, and share what you've learned with othe
     }
 }
 
+/* Author field content dark mode fix */
+[data-theme="dark"] .author-hero-section .article-field-author-name .article-field-content {
+    color: var(--text) !important;
+}
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .site-content {
