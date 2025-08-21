@@ -1,0 +1,411 @@
+/**
+ * Query Loop Card Styles for Over the Edge Theme
+ * Styles for WordPress Query Loop blocks with OTE card animations
+ */
+
+/* -------------------- Query Loop Card Grid -------------------- */
+.wp-block-query.is-style-ote-card-grid .wp-block-post-template,
+.wp-block-query.ote-card-grid .wp-block-post-template {
+  display: grid;
+  gap: var(--space-4, 16px);
+  grid-template-columns: repeat(1, 1fr);
+}
+
+/* Responsive grid columns */
+@media (min-width: 640px) {
+  .wp-block-query.is-style-ote-card-grid .wp-block-post-template,
+  .wp-block-query.ote-card-grid .wp-block-post-template {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .wp-block-query.is-style-ote-card-grid .wp-block-post-template,
+  .wp-block-query.ote-card-grid .wp-block-post-template {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Compact layout for mobile */
+.wp-block-query.is-style-ote-card-grid-compact .wp-block-post-template,
+.wp-block-query.ote-card-grid--compact .wp-block-post-template {
+  display: grid;
+  gap: var(--space-3, 12px);
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 640px) {
+  .wp-block-query.is-style-ote-card-grid-compact .wp-block-post-template,
+  .wp-block-query.ote-card-grid--compact .wp-block-post-template {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .wp-block-query.is-style-ote-card-grid-compact .wp-block-post-template,
+  .wp-block-query.ote-card-grid--compact .wp-block-post-template {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* -------------------- Individual Card Styling -------------------- */
+/* Target post template items that are styled as cards */
+.wp-block-query .wp-block-post-template li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base card styles */
+.is-style-ote-card,
+.is-style-ote-card-animated,
+.card {
+  border: 1px solid var(--border, #e2e8f0);
+  background: var(--surface, #ffffff);
+  border-radius: var(--radius-m, 14px);
+  overflow: clip;
+  box-shadow: var(--elev-1, 0 2px 8px rgba(0,0,0,.08));
+  transition: transform var(--trans-med, 240ms cubic-bezier(.2,.6,.2,1)), 
+              box-shadow var(--trans-med, 240ms cubic-bezier(.2,.6,.2,1)), 
+              border-color var(--trans-med, 240ms cubic-bezier(.2,.6,.2,1));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Animated cards with organic border effect */
+.is-style-ote-card-animated,
+.card--animated {
+  cursor: pointer;
+}
+
+.is-style-ote-card-animated::before,
+.card--animated::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-m, 14px) + 2px);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M2,2 Q25,8 48,2 Q75,10 98,2 L98,25 Q90,48 98,75 Q92,90 98,98 L75,98 Q48,90 25,98 Q10,92 2,98 L2,75 Q8,48 2,25 Q10,10 2,2 Z' stroke='%232d5f3f' stroke-width='1.2' fill='none' stroke-linecap='round' opacity='0.0'/%3E%3C/svg%3E") no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--trans-med, 240ms cubic-bezier(.2,.6,.2,1));
+}
+
+[data-theme="dark"] .is-style-ote-card-animated::before,
+[data-theme="dark"] .card--animated::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M2,2 Q25,8 48,2 Q75,10 98,2 L98,25 Q90,48 98,75 Q92,90 98,98 L75,98 Q48,90 25,98 Q10,92 2,98 L2,75 Q8,48 2,25 Q10,10 2,2 Z' stroke='%234a7c59' stroke-width='1.2' fill='none' stroke-linecap='round' opacity='0.0'/%3E%3C/svg%3E") no-repeat;
+  background-size: 100% 100%;
+}
+
+.is-style-ote-card-animated:hover,
+.card--animated:hover {
+  transform: translateY(-3px) translateX(1px) rotate(-0.4deg);
+  box-shadow: var(--elev-2, 0 8px 24px rgba(0,0,0,.10));
+  border-color: color-mix(in oklab, var(--brand, #2d5f3f), transparent 30%);
+}
+
+.is-style-ote-card-animated:hover::before,
+.card--animated:hover::before {
+  opacity: 1;
+}
+
+.is-style-ote-card-animated:active,
+.card--animated:active {
+  transform: translateY(-1px) translateX(0px) rotate(-0.2deg) scale(0.99);
+}
+
+/* -------------------- Card Components -------------------- */
+/* Featured Image / Media */
+.is-style-ote-card .wp-block-post-featured-image,
+.is-style-ote-card-animated .wp-block-post-featured-image,
+.card .card__media {
+  aspect-ratio: 16 / 9;
+  background: var(--muted, #f8fafc);
+  overflow: hidden;
+  flex-shrink: 0;
+  margin: 0;
+  border-radius: 0;
+}
+
+.is-style-ote-card .wp-block-post-featured-image img,
+.is-style-ote-card-animated .wp-block-post-featured-image img,
+.card .card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--trans-med, 240ms cubic-bezier(.2,.6,.2,1));
+}
+
+.is-style-ote-card-animated:hover .wp-block-post-featured-image img,
+.card--animated:hover .card__media img {
+  transform: scale(1.02);
+}
+
+/* Card Body */
+.is-style-ote-card > *:not(.wp-block-post-featured-image),
+.is-style-ote-card-animated > *:not(.wp-block-post-featured-image),
+.card .card__body {
+  padding: var(--space-4, 16px);
+}
+
+.is-style-ote-card > *:not(.wp-block-post-featured-image):first-child,
+.is-style-ote-card-animated > *:not(.wp-block-post-featured-image):first-child {
+  padding-top: var(--space-4, 16px);
+}
+
+.is-style-ote-card > *:not(.wp-block-post-featured-image):last-child,
+.is-style-ote-card-animated > *:not(.wp-block-post-featured-image):last-child {
+  padding-bottom: var(--space-4, 16px);
+  margin-top: auto;
+}
+
+/* Post Title */
+.is-style-ote-card .wp-block-post-title,
+.is-style-ote-card-animated .wp-block-post-title,
+.card .card__title {
+  font-family: var(--font-serif, "Source Serif 4", serif);
+  font-size: 20px;
+  line-height: 1.25;
+  color: var(--text, #1e293b);
+  margin: 0 0 var(--space-3, 12px) 0;
+}
+
+.is-style-ote-card .wp-block-post-title a,
+.is-style-ote-card-animated .wp-block-post-title a,
+.card .card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.is-style-ote-card .wp-block-post-title a:hover,
+.is-style-ote-card-animated .wp-block-post-title a:hover,
+.card .card__title a:hover {
+  color: var(--brand, #2d5f3f);
+}
+
+/* Post Date and Meta */
+.is-style-ote-card .wp-block-post-date,
+.is-style-ote-card-animated .wp-block-post-date,
+.is-style-ote-card .wp-block-post-terms,
+.is-style-ote-card-animated .wp-block-post-terms,
+.card .card__meta {
+  font-size: 13px;
+  color: var(--text-sec, #64748b);
+  margin: 0 0 var(--space-2, 8px) 0;
+}
+
+.is-style-ote-card .wp-block-post-terms a,
+.is-style-ote-card-animated .wp-block-post-terms a {
+  color: var(--brand, #2d5f3f);
+  text-decoration: none;
+  font-size: 12px;
+  background: color-mix(in oklab, var(--brand, #2d5f3f), transparent 90%);
+  border: 1px solid color-mix(in oklab, var(--brand, #2d5f3f), transparent 70%);
+  padding: 2px 8px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+/* Post Excerpt */
+.is-style-ote-card .wp-block-post-excerpt,
+.is-style-ote-card-animated .wp-block-post-excerpt,
+.card .card__excerpt {
+  color: var(--text-sec, #64748b);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: var(--space-2, 8px) 0;
+}
+
+.is-style-ote-card .wp-block-post-excerpt p,
+.is-style-ote-card-animated .wp-block-post-excerpt p {
+  margin: 0;
+}
+
+/* Buttons and Actions */
+.is-style-ote-card .wp-block-buttons,
+.is-style-ote-card-animated .wp-block-buttons,
+.card .card__actions {
+  margin: var(--space-3, 12px) 0 0 0;
+  display: flex;
+  gap: var(--space-2, 8px);
+  flex-wrap: wrap;
+}
+
+.is-style-ote-card .wp-block-button__link,
+.is-style-ote-card-animated .wp-block-button__link {
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: var(--radius-s, 10px);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--trans-fast, 160ms cubic-bezier(.2,.6,.2,1));
+}
+
+/* Button variations */
+.is-style-ote-primary .wp-block-button__link {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--brand, #2d5f3f), white 8%), var(--brand, #2d5f3f));
+  border: 1px solid color-mix(in oklab, var(--brand, #2d5f3f), black 25%);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+}
+
+.is-style-ote-primary .wp-block-button__link:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 12px 32px rgba(0,0,0,.18);
+  transform: translateY(-1px);
+}
+
+.is-style-ote-outline .wp-block-button__link {
+  background: transparent;
+  border: 1px solid var(--border, #e2e8f0);
+  color: var(--text, #1e293b);
+}
+
+.is-style-ote-outline .wp-block-button__link:hover {
+  background: var(--muted, #f8fafc);
+}
+
+.is-style-ote-ghost .wp-block-button__link {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text, #1e293b);
+}
+
+.is-style-ote-ghost .wp-block-button__link:hover {
+  background: var(--muted, #f8fafc);
+}
+
+/* -------------------- Compact Layout -------------------- */
+@media (max-width: 639px) {
+  .ote-card-grid--compact .is-style-ote-card,
+  .ote-card-grid--compact .is-style-ote-card-animated {
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    align-items: stretch;
+    border-radius: var(--radius-s, 10px);
+    overflow: hidden;
+  }
+  
+  .ote-card-grid--compact .wp-block-post-featured-image {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 96px;
+    max-height: 132px;
+    margin: 0;
+  }
+  
+  .ote-card-grid--compact .is-style-ote-card > *:not(.wp-block-post-featured-image),
+  .ote-card-grid--compact .is-style-ote-card-animated > *:not(.wp-block-post-featured-image) {
+    padding: 12px;
+  }
+  
+  .ote-card-grid--compact .wp-block-post-title {
+    font-size: 17px;
+    line-height: 1.2;
+    margin-bottom: var(--space-2, 8px);
+  }
+  
+  .ote-card-grid--compact .wp-block-post-date,
+  .ote-card-grid--compact .wp-block-post-terms {
+    font-size: 12px;
+    margin-bottom: var(--space-1, 4px);
+  }
+  
+  .ote-card-grid--compact .wp-block-buttons .wp-block-button__link {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+}
+
+/* -------------------- Dark Mode Support -------------------- */
+[data-theme="dark"] .is-style-ote-card,
+[data-theme="dark"] .is-style-ote-card-animated,
+[data-theme="dark"] .card {
+  border-color: var(--border, #334155);
+  background: var(--surface, #1e293b);
+}
+
+[data-theme="dark"] .is-style-ote-card .wp-block-post-title,
+[data-theme="dark"] .is-style-ote-card-animated .wp-block-post-title,
+[data-theme="dark"] .card .card__title {
+  color: var(--text, #e6eaf2);
+}
+
+[data-theme="dark"] .is-style-ote-card .wp-block-post-date,
+[data-theme="dark"] .is-style-ote-card-animated .wp-block-post-date,
+[data-theme="dark"] .is-style-ote-card .wp-block-post-excerpt,
+[data-theme="dark"] .is-style-ote-card-animated .wp-block-post-excerpt,
+[data-theme="dark"] .card .card__meta,
+[data-theme="dark"] .card .card__excerpt {
+  color: var(--text-sec, #b9c0cf);
+}
+
+/* -------------------- Motion Preferences -------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .is-style-ote-card,
+  .is-style-ote-card-animated,
+  .card {
+    transition-duration: 0ms !important;
+  }
+  
+  .is-style-ote-card-animated:hover,
+  .card--animated:hover {
+    transform: none;
+  }
+  
+  .is-style-ote-card .wp-block-post-featured-image img,
+  .is-style-ote-card-animated .wp-block-post-featured-image img,
+  .card .card__media img {
+    transition-duration: 0ms !important;
+  }
+}
+
+/* -------------------- Query Loop Pagination -------------------- */
+.ote-card-grid .wp-block-query-pagination {
+  margin-top: var(--space-8, 32px);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3, 12px);
+  align-items: center;
+}
+
+.ote-card-grid .wp-block-query-pagination a,
+.ote-card-grid .wp-block-query-pagination .page-numbers {
+  padding: 8px 12px;
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: var(--radius-s, 10px);
+  background: var(--surface, #ffffff);
+  color: var(--text, #1e293b);
+  text-decoration: none;
+  transition: all var(--trans-fast, 160ms cubic-bezier(.2,.6,.2,1));
+}
+
+.ote-card-grid .wp-block-query-pagination a:hover,
+.ote-card-grid .wp-block-query-pagination .page-numbers:hover {
+  background: var(--muted, #f8fafc);
+  border-color: var(--brand, #2d5f3f);
+}
+
+.ote-card-grid .wp-block-query-pagination .current {
+  background: var(--brand, #2d5f3f);
+  color: #fff;
+  border-color: var(--brand, #2d5f3f);
+}
+
+/* -------------------- No Results State -------------------- */
+.ote-card-grid .wp-block-query-no-results {
+  text-align: center;
+  padding: var(--space-8, 32px);
+  color: var(--text-sec, #64748b);
+}
+
+.ote-card-grid .wp-block-query-no-results p {
+  font-size: 18px;
+  margin: 0;
+}

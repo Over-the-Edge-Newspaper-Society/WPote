@@ -1,0 +1,356 @@
+/* Chip and Tab Components for OTE Child Theme
+   Reusable button styles that match the test site design */
+
+/* Base Variables (matching OTE design system) */
+:root {
+  --ote-chip-border: #e2e8f0;
+  --ote-chip-surface: #ffffff;
+  --ote-chip-text: #64748b;
+  --ote-chip-text-active: #1e293b;
+  --ote-chip-muted: #f8fafc;
+  --ote-chip-brand: #2d5f3f;
+  --ote-chip-brand-light: rgba(45, 95, 63, 0.1);
+  --ote-trans-fast: 160ms cubic-bezier(.2,.6,.2,1);
+  --ote-space-2: 8px;
+  --ote-space-3: 12px;
+}
+
+/* Chip and Tab Container */
+.ote-chips, .ote-tabs {
+  display: flex;
+  gap: var(--ote-space-2);
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.ote-chips::-webkit-scrollbar,
+.ote-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* Base Chip and Tab Styles */
+.ote-chip, .ote-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 8px 12px;
+  border: 1px solid var(--ote-chip-border);
+  background: var(--ote-chip-surface);
+  color: var(--ote-chip-text);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--ote-trans-fast);
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Hover States */
+.ote-chip:hover, .ote-tab:hover {
+  background: var(--ote-chip-muted);
+  color: var(--ote-chip-text-active);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+/* Active States */
+.ote-chip.is-active, .ote-tab.is-active,
+.ote-chip[aria-selected="true"], .ote-tab[aria-selected="true"] {
+  border-color: #cbd5e1;
+  color: var(--ote-chip-text-active);
+  background: var(--ote-chip-brand-light);
+  box-shadow: none;
+}
+
+/* Outline Variant */
+.ote-chip--outline {
+  background: transparent;
+  border-color: var(--ote-chip-border);
+}
+
+.ote-chip--outline:hover {
+  background: var(--ote-chip-muted);
+  border-color: var(--ote-chip-brand);
+}
+
+/* Primary Variant */
+.ote-chip--primary {
+  background: var(--ote-chip-brand);
+  color: #ffffff;
+  border-color: var(--ote-chip-brand);
+}
+
+.ote-chip--primary:hover {
+  background: #336847;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* WordPress Button Integration */
+.wp-block-button.is-style-ote-chip .wp-block-button__link,
+.wp-block-button.is-style-ote-tab .wp-block-button__link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  border-radius: 999px !important;
+  padding: 8px 12px !important;
+  border: 1px solid var(--ote-chip-border) !important;
+  background: var(--ote-chip-surface) !important;
+  color: var(--ote-chip-text) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all var(--ote-trans-fast) !important;
+  white-space: nowrap !important;
+}
+
+.wp-block-button.is-style-ote-chip .wp-block-button__link:hover,
+.wp-block-button.is-style-ote-tab .wp-block-button__link:hover {
+  background: var(--ote-chip-muted) !important;
+  color: var(--ote-chip-text-active) !important;
+  transform: translateY(-1px) !important;
+  text-decoration: none !important;
+}
+
+/* Category Filter Specific Styles */
+.ote-category-filters {
+  margin: 20px 0;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Gradient overlays for horizontal scroll indication */
+.ote-category-filters::before,
+.ote-category-filters::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Left gradient - using body background color */
+.ote-category-filters::before {
+  left: 0;
+  background: linear-gradient(90deg, 
+    var(--wp--preset--color--base, #ffffff) 0%,
+    var(--wp--preset--color--base, #ffffff) 20%,
+    rgba(255, 255, 255, 0.7) 50%,
+    transparent 100%);
+}
+
+/* Right gradient - using body background color */
+.ote-category-filters::after {
+  right: 0;
+  background: linear-gradient(270deg, 
+    var(--wp--preset--color--base, #ffffff) 0%,
+    var(--wp--preset--color--base, #ffffff) 20%,
+    rgba(255, 255, 255, 0.7) 50%,
+    transparent 100%);
+}
+
+/* Mobile styles and gradient visibility */
+@media (max-width: 768px) {
+  /* Ensure parent flex container doesn't break layout */
+  .wp-block-group.is-nowrap .ote-category-filters {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+  
+  .ote-category-filters {
+    margin: 10px -20px 10px 0; /* Negative margin to extend to edge */
+    padding-right: 20px;
+  }
+  
+  .ote-category-filters .ote-chips {
+    padding: 0 10px;
+    margin: 0 -10px;
+  }
+  
+  /* Show gradients when content is scrollable */
+  .ote-category-filters.has-scroll::before,
+  .ote-category-filters.has-scroll::after {
+    opacity: 1;
+  }
+  
+  /* Hide left gradient when scrolled to start */
+  .ote-category-filters.at-start::before {
+    opacity: 0;
+  }
+  
+  /* Hide right gradient when scrolled to end */
+  .ote-category-filters.at-end::after {
+    opacity: 0;
+  }
+}
+
+.ote-category-filters .ote-filter-item {
+  position: relative;
+}
+
+.ote-category-filters .ote-filter-item.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--ote-chip-brand);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* This section is now handled below */
+
+/* Remove browser default focus outline */
+.ote-chip, .ote-tab,
+.ote-chip:active, .ote-tab:active,
+.ote-chip:focus, .ote-tab:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Only show focus ring for keyboard navigation */
+.ote-chip:focus-visible, .ote-tab:focus-visible {
+  box-shadow: 0 0 0 2px rgba(45, 95, 63, 0.3) !important;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ote-chip-border: #334155;
+    --ote-chip-surface: #1e293b;
+    --ote-chip-text: #b9c0cf;
+    --ote-chip-text-active: #e6eaf2;
+    --ote-chip-muted: #141922;
+  }
+  
+  /* Dark mode gradients */
+  .ote-category-filters::before {
+    background: linear-gradient(90deg, 
+      var(--wp--preset--color--base, #1e293b) 0%,
+      var(--wp--preset--color--base, #1e293b) 20%,
+      rgba(30, 41, 59, 0.7) 50%,
+      transparent 100%);
+  }
+  
+  .ote-category-filters::after {
+    background: linear-gradient(270deg, 
+      var(--wp--preset--color--base, #1e293b) 0%,
+      var(--wp--preset--color--base, #1e293b) 20%,
+      rgba(30, 41, 59, 0.7) 50%,
+      transparent 100%);
+  }
+}
+
+/* WordPress Dark Mode Data Attribute Support */
+[data-theme="dark"] {
+  --ote-chip-border: #334155;
+  --ote-chip-surface: #1e293b;
+  --ote-chip-text: #b9c0cf;
+  --ote-chip-text-active: #e6eaf2;
+  --ote-chip-muted: #141922;
+}
+
+[data-theme="dark"] .ote-category-filters::before {
+  background: linear-gradient(90deg, 
+    var(--wp--preset--color--base, #1e293b) 0%,
+    var(--wp--preset--color--base, #1e293b) 20%,
+    rgba(30, 41, 59, 0.7) 50%,
+    transparent 100%);
+}
+
+[data-theme="dark"] .ote-category-filters::after {
+  background: linear-gradient(270deg, 
+    var(--wp--preset--color--base, #1e293b) 0%,
+    var(--wp--preset--color--base, #1e293b) 20%,
+    rgba(30, 41, 59, 0.7) 50%,
+    transparent 100%);
+}
+
+/* Body class dark mode support (common pattern) */
+.dark-theme,
+.dark-mode,
+body.dark {
+  --ote-chip-border: #334155;
+  --ote-chip-surface: #1e293b;
+  --ote-chip-text: #b9c0cf;
+  --ote-chip-text-active: #e6eaf2;
+  --ote-chip-muted: #141922;
+}
+
+.dark-theme .ote-category-filters::before,
+.dark-mode .ote-category-filters::before,
+body.dark .ote-category-filters::before {
+  background: linear-gradient(90deg, 
+    var(--wp--preset--color--base, #1e293b) 0%,
+    var(--wp--preset--color--base, #1e293b) 20%,
+    rgba(30, 41, 59, 0.7) 50%,
+    transparent 100%);
+}
+
+.dark-theme .ote-category-filters::after,
+.dark-mode .ote-category-filters::after,
+body.dark .ote-category-filters::after {
+  background: linear-gradient(270deg, 
+    var(--wp--preset--color--base, #1e293b) 0%,
+    var(--wp--preset--color--base, #1e293b) 20%,
+    rgba(30, 41, 59, 0.7) 50%,
+    transparent 100%);
+}
+
+/* WordPress Block Editor Dark Mode */
+.editor-styles-wrapper[data-theme="dark"] .wp-block-button.is-style-ote-chip .wp-block-button__link,
+.editor-styles-wrapper[data-theme="dark"] .wp-block-button.is-style-ote-tab .wp-block-button__link {
+  border-color: #334155 !important;
+  background: #1e293b !important;
+  color: #b9c0cf !important;
+}
+
+.editor-styles-wrapper[data-theme="dark"] .wp-block-button.is-style-ote-chip .wp-block-button__link:hover,
+.editor-styles-wrapper[data-theme="dark"] .wp-block-button.is-style-ote-tab .wp-block-button__link:hover {
+  background: #141922 !important;
+  color: #e6eaf2 !important;
+}
+
+/* Size Variants */
+.ote-chip--small, .ote-tab--small {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.ote-chip--large, .ote-tab--large {
+  padding: 10px 16px;
+  font-size: 16px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .ote-chips, .ote-tabs {
+    gap: 6px;
+  }
+  
+  .ote-chip, .ote-tab {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}

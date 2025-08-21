@@ -1,0 +1,344 @@
+/**
+ * Editor Styles for Over the Edge Child Theme
+ * Applies the design system to the Gutenberg editor
+ */
+
+/* Design system variables and base styles - inline to avoid import issues */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap");
+
+:root {
+  --radius-xs: 6px;
+  --radius-s: 10px;
+  --radius-m: 14px;
+  --radius-l: 20px;
+
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --elev-1: 0 2px 8px rgba(0,0,0,.08);
+  --elev-2: 0 8px 24px rgba(0,0,0,.10);
+  --elev-3: 0 16px 40px rgba(0,0,0,.16);
+
+  --trans-fast: 160ms cubic-bezier(.2,.6,.2,1);
+  --trans-med: 240ms cubic-bezier(.2,.6,.2,1);
+  --focus-ring: 0 0 0 3px color-mix(in oklab, var(--brand), transparent 70%);
+
+  --font-ui: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-serif: "Source Serif 4", ui-serif, Georgia, "Times New Roman", serif;
+
+  --brand: #2d5f3f;
+  --brand-2: #4a7c59;
+  --accent-blue: #0ea5e9;
+  --bg: #ffffff;
+  --bg-elev: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --text-sec: #64748b;
+  --border: #e2e8f0;
+  --muted: #f8fafc;
+
+  --success: #35C291;
+  --warning: #E7A83A;
+  --danger: #F06A5E;
+
+  color-scheme: light;
+}
+
+/* Editor-specific overrides to match frontend exactly */
+.editor-styles-wrapper {
+  font-family: var(--font-ui) !important;
+  color: var(--text) !important;
+  background: var(--bg) !important;
+  background-color: white !important;
+  line-height: 1.5;
+  font-size: 16px !important;
+}
+
+.editor-styles-wrapper .block-editor-block-list__layout {
+  background: white !important;
+}
+
+/* Fix the grey background issue - WordPress 6.x structure */
+.edit-post-visual-editor,
+.block-editor-writing-flow,
+.block-editor-block-list__layout,
+.interface-interface-skeleton__content,
+.edit-post-layout__content,
+.edit-post-editor__inserter-panel,
+.edit-post-editor__list-view-panel,
+.interface-interface-skeleton__body,
+.interface-interface-skeleton__editor {
+  background: white !important;
+}
+
+/* Site Editor specific fixes */
+.edit-site-visual-editor,
+.edit-site-visual-editor__editor-canvas,
+.editor-canvas__iframe {
+  background: white !important;
+}
+
+/* Make editor fonts match frontend exactly */
+.editor-styles-wrapper,
+.editor-styles-wrapper p,
+.editor-styles-wrapper div,
+.editor-styles-wrapper span {
+  font-family: var(--font-ui) !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+
+/* Headings should use serif font like frontend */
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+  font-family: var(--font-serif) !important;
+}
+
+/* Override WordPress default editor typography */
+.editor-styles-wrapper .wp-block {
+  font-family: var(--font-ui) !important;
+  color: var(--text) !important;
+}
+
+/* Make paragraphs match frontend */
+.editor-styles-wrapper .wp-block-paragraph {
+  font-family: var(--font-ui) !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  color: var(--text) !important;
+}
+
+/* Override any Twenty Twenty-Five editor styles */
+.editor-styles-wrapper * {
+  font-family: var(--font-ui) !important;
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6,
+.editor-styles-wrapper .wp-block-heading {
+  font-family: var(--font-serif) !important;
+}
+
+/* Typography in editor */
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+  font-family: var(--font-serif);
+  color: var(--text);
+}
+
+.editor-styles-wrapper h1 {
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.editor-styles-wrapper h2 {
+  font-size: clamp(24px, 2.6vw, 32px);
+  letter-spacing: -0.01em;
+}
+
+.editor-styles-wrapper h3 {
+  font-size: 18px;
+}
+
+/* Block styles in editor */
+.editor-styles-wrapper .wp-block-group.is-style-ote-hero {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+  color: white;
+  padding: var(--space-12) var(--space-6);
+  border-radius: var(--radius-l);
+  text-align: center;
+}
+
+.editor-styles-wrapper .wp-block-group.is-style-ote-section {
+  padding: var(--space-8) 0;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-m);
+}
+
+.editor-styles-wrapper .wp-block-group.is-style-ote-card,
+.editor-styles-wrapper .wp-block-group.is-style-ote-card-animated {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-m);
+  padding: var(--space-4);
+  box-shadow: var(--elev-1);
+}
+
+.editor-styles-wrapper .wp-block-button.is-style-ote-primary .wp-block-button__link {
+  background: var(--brand);
+  color: white;
+  border-radius: var(--radius-s);
+  font-weight: 500;
+}
+
+.editor-styles-wrapper .wp-block-button.is-style-ote-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--brand);
+  border: 2px solid var(--brand);
+  border-radius: var(--radius-s);
+  font-weight: 500;
+}
+
+.editor-styles-wrapper .wp-block-button.is-style-ote-ghost .wp-block-button__link {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: var(--radius-s);
+  font-weight: 500;
+}
+
+/* Query Loop preview styles */
+.editor-styles-wrapper .wp-block-query.is-style-ote-card-grid .wp-block-post-template {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.editor-styles-wrapper .wp-block-query.is-style-ote-card-grid-compact .wp-block-post-template {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Dark mode toggle block editor styles */
+.editor-styles-wrapper .ote-dark-mode-toggle-editor {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-m);
+  padding: var(--space-4);
+  background: var(--bg-elev);
+}
+
+.editor-styles-wrapper .ote-dark-mode-toggle-preview__header {
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.editor-styles-wrapper .ote-dark-mode-toggle-preview__header h3 {
+  margin: 0 0 var(--space-2) 0;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.editor-styles-wrapper .ote-dark-mode-toggle-preview__meta {
+  font-size: 12px;
+  color: var(--text-sec);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Card grid editor preview */
+.editor-styles-wrapper .is-style-ote-card .wp-block-post-featured-image {
+  aspect-ratio: 16/9;
+  background: var(--muted);
+  border-radius: var(--radius-s);
+  overflow: hidden;
+}
+
+.editor-styles-wrapper .is-style-ote-card .wp-block-post-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 1.25;
+  color: var(--text);
+  margin: var(--space-3) 0;
+}
+
+.editor-styles-wrapper .is-style-ote-card .wp-block-post-date,
+.editor-styles-wrapper .is-style-ote-card .wp-block-post-terms {
+  font-size: 13px;
+  color: var(--text-sec);
+  margin: var(--space-2) 0;
+}
+
+.editor-styles-wrapper .is-style-ote-card .wp-block-post-excerpt {
+  color: var(--text-sec);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: var(--space-2) 0;
+}
+
+/* Focus styles for editor */
+.editor-styles-wrapper .wp-block:focus {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Block toolbar styling */
+.editor-styles-wrapper .block-editor-block-toolbar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-s);
+  box-shadow: var(--elev-2);
+}
+
+/* Inserter styling */
+.editor-styles-wrapper .block-editor-inserter__menu {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--elev-3);
+}
+
+/* Editor canvas specific adjustments - match frontend container */
+.editor-styles-wrapper {
+  max-width: 1120px !important;
+  margin: 0 auto !important;
+  padding: 0 16px !important;
+}
+
+.editor-styles-wrapper .wp-block {
+  max-width: none !important;
+}
+
+.editor-styles-wrapper .wp-block[data-align="wide"] {
+  max-width: none !important;
+}
+
+.editor-styles-wrapper .wp-block[data-align="full"] {
+  max-width: none !important;
+}
+
+/* Make editor match frontend spacing */
+.editor-styles-wrapper .wp-block + .wp-block {
+  margin-top: 1.5em;
+}
+
+/* Ensure consistent appearance */
+.editor-styles-wrapper .wp-block-paragraph {
+  margin: 1em 0 !important;
+}
+
+.editor-styles-wrapper .wp-block-heading {
+  margin: 1.5em 0 0.5em 0 !important;
+}
+
+/* Remove any WordPress default styling that conflicts */
+.editor-styles-wrapper .wp-block-heading h1,
+.editor-styles-wrapper .wp-block-heading h2,
+.editor-styles-wrapper .wp-block-heading h3,
+.editor-styles-wrapper .wp-block-heading h4,
+.editor-styles-wrapper .wp-block-heading h5,
+.editor-styles-wrapper .wp-block-heading h6 {
+  font-family: var(--font-serif) !important;
+  color: var(--text) !important;
+  margin: 0 !important;
+}

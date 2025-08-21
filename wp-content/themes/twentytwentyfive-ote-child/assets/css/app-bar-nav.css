@@ -1,0 +1,854 @@
+/* OTE App Bar Navigation - Adapted from Campus Chronicle Design System */
+
+/* -------------------- CSS Variables -------------------- */
+:root {
+  --app-radius-xs: 6px;
+  --app-radius-s: 10px;
+  --app-radius-m: 14px;
+  --app-radius-l: 20px;
+
+  --app-space-2: 8px;
+  --app-space-3: 12px;
+  --app-space-4: 16px;
+  --app-space-5: 20px;
+  --app-space-6: 24px;
+
+  --app-elev-1: 0 2px 8px rgba(0,0,0,.08);
+  --app-elev-2: 0 8px 24px rgba(0,0,0,.10);
+  --app-elev-3: 0 16px 40px rgba(0,0,0,.16);
+
+  --app-trans-fast: 160ms cubic-bezier(.2,.6,.2,1);
+  --app-trans-med: 240ms cubic-bezier(.2,.6,.2,1);
+  --app-focus-ring: 0 0 0 3px color-mix(in oklab, var(--app-brand), transparent 70%);
+
+  /* OTE Brand Colors */
+  --app-brand: #2d5f3f;
+  --app-brand-2: #4a7c59;
+  --app-accent-blue: #0ea5e9;
+
+  /* Light Mode Colors */
+  --app-bg: #ffffff;
+  --app-bg-elev: #f8fafc;
+  --app-surface: #ffffff;
+  --app-text: #1e293b;
+  --app-text-sec: #64748b;
+  --app-border: #e2e8f0;
+  --app-muted: #f8fafc;
+
+  color-scheme: light;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --app-bg: #0f172a;
+    --app-bg-elev: #141922;
+    --app-surface: #1e293b;
+    --app-text: #e6eaf2;
+    --app-text-sec: #b9c0cf;
+    --app-border: #334155;
+    --app-muted: #141922;
+    color-scheme: dark;
+  }
+}
+
+/* Explicit theme override via data-theme on html */
+html[data-theme="light"] {
+  --app-brand: #2d5f3f;
+  --app-brand-2: #4a7c59;
+  --app-bg: #ffffff;
+  --app-bg-elev: #f8fafc;
+  --app-surface: #ffffff;
+  --app-text: #1e293b;
+  --app-text-sec: #64748b;
+  --app-border: #e2e8f0;
+  --app-muted: #f8fafc;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --app-brand: #4a7c59;
+  --app-brand-2: #86a58e;
+  --app-bg: #0f172a;
+  --app-bg-elev: #141922;
+  --app-surface: #1e293b;
+  --app-text: #e6eaf2;
+  --app-text-sec: #b9c0cf;
+  --app-border: #334155;
+  --app-muted: #141922;
+  color-scheme: dark;
+}
+
+/* -------------------- App Bar -------------------- */
+.app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr auto; /* center cluster + right tools */
+  align-items: center;
+  gap: var(--app-space-4);
+  padding: var(--app-space-5) var(--app-space-4);
+  /* Frosted top bar */
+  background: color-mix(in oklab, var(--app-bg), transparent 20%);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  backdrop-filter: blur(12px) saturate(1.1);
+  border-bottom: 1px solid color-mix(in oklab, var(--app-border), transparent 20%);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--app-border), transparent 60%);
+}
+
+.app-bar__left,
+.app-bar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--app-space-2);
+}
+
+/* Centered cluster holds hamburger + logo + nav + search together */
+.app-bar__cluster {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center; /* keep cluster centered as a unit */
+  gap: var(--app-space-3);
+}
+
+.app-bar__menu {
+  display: inline-flex; /* Show burger menu on mobile by default */
+}
+
+.app-bar__nav {
+  display: none; /* Hide nav links on mobile by default */
+  gap: 8px;
+  justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .app-bar__nav { 
+    display: inline-flex; /* Show nav links on desktop */
+  }
+  .app-bar__menu { 
+    display: none; /* Hide burger menu on desktop */
+  }
+}
+
+.app-bar__searchBtn { 
+  display: none; 
+}
+
+@media (min-width: 900px) {
+  .app-bar__searchBtn { 
+    display: inline-flex; 
+  }
+}
+
+/* -------------------- Navigation Links -------------------- */
+.nav-link {
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: var(--app-text-sec);
+  text-decoration: none;
+  transition: color var(--app-trans-fast), background var(--app-trans-fast);
+}
+
+.nav-link:hover { 
+  background: var(--app-muted); 
+  color: var(--app-text); 
+}
+
+.nav-link.is-active { 
+  color: var(--app-text); 
+  background: color-mix(in oklab, var(--app-brand), transparent 88%); 
+}
+
+.nav-link--settings {
+  padding: 8px;
+}
+
+/* -------------------- Brand -------------------- */
+.brand { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 10px; 
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--app-text);
+}
+
+.brand:hover {
+  color: var(--app-text);
+  text-decoration: none;
+}
+
+.brand__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand__name { 
+  letter-spacing: -0.01em; 
+}
+
+/* -------------------- OTE Logo Shortcode Integration -------------------- */
+/* Ensure logo shortcode works properly in app bar context */
+.ote-logo-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.ote-logo-wrapper .ote-logo-link {
+  display: flex;
+  align-items: center;
+}
+
+/* -------------------- WordPress App Bar Navigation -------------------- */
+/* Target header structure without ote-app-bar-nav class on header */
+header.wp-block-template-part .wp-block-group.has-global-padding.is-layout-constrained {
+  /* First, completely reset WordPress padding */
+  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  
+  /* Override WordPress CSS variables that control global padding */
+  --wp--preset--spacing--30: 0px !important;
+  --wp--preset--spacing--40: 0px !important;
+  --wp--preset--spacing--50: 0px !important;
+  
+  /* Then apply our own consistent padding */
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+/* -------------------- Buttons & Icons -------------------- */
+.icon-btn, .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--app-radius-s);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--app-text);
+  transition: transform var(--app-trans-fast), background var(--app-trans-fast), color var(--app-trans-fast), border-color var(--app-trans-fast), box-shadow var(--app-trans-fast);
+}
+
+.icon-btn:hover { 
+  background: var(--app-muted); 
+}
+
+.icon-btn:active { 
+  transform: translateY(1px); 
+}
+
+.btn--ghost { 
+  background: transparent;
+  border-color: transparent;
+}
+
+.btn--ghost:hover { 
+  background: var(--app-muted); 
+}
+
+/* -------------------- Theme Toggle -------------------- */
+.theme-toggle {
+  position: relative;
+  width: 44px;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.theme-toggle__icon {
+  position: absolute;
+  transition: transform var(--app-trans-med), opacity var(--app-trans-med);
+}
+
+/* Desktop theme toggle animation - rotate and scale */
+.app-bar__right .theme-toggle__icon--sun,
+#themeToggle .theme-toggle__icon--sun {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+.app-bar__right .theme-toggle__icon--moon,
+#themeToggle .theme-toggle__icon--moon {
+  transform: rotate(180deg) scale(0.5);
+  opacity: 0;
+}
+
+/* Dark mode icon states for desktop */
+html[data-theme="dark"] .app-bar__right .theme-toggle__icon--sun,
+html[data-theme="dark"] #themeToggle .theme-toggle__icon--sun {
+  transform: rotate(-180deg) scale(0.5);
+  opacity: 0;
+}
+
+html[data-theme="dark"] .app-bar__right .theme-toggle__icon--moon,
+html[data-theme="dark"] #themeToggle .theme-toggle__icon--moon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+/* Mobile menu theme toggle animation - slide up/down */
+.mobile-menu-theme-toggle .theme-toggle__icon--sun {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobile-menu-theme-toggle .theme-toggle__icon--moon {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+html[data-theme="dark"] .mobile-menu-theme-toggle .theme-toggle__icon--sun {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+html[data-theme="dark"] .mobile-menu-theme-toggle .theme-toggle__icon--moon {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Light mode icon states (default) */
+html[data-theme="light"] .theme-toggle__icon--moon {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+html[data-theme="light"] .theme-toggle__icon--sun {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* -------------------- Mobile Menu Overlay -------------------- */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in oklab, var(--app-bg), transparent 35%);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--app-trans-med);
+  z-index: 100;
+}
+
+.mobile-menu-overlay[data-open="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu-panel {
+  width: min(560px, 92vw);
+  max-height: min(80vh, 640px);
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-elev-3);
+  border-radius: 16px;
+  padding: var(--app-space-5) var(--app-space-4) var(--app-space-6);
+  display: grid;
+  gap: var(--app-space-4);
+  transform: translateY(12px) scale(.98);
+  opacity: 0;
+  transition: transform var(--app-trans-med), opacity var(--app-trans-med);
+}
+
+.mobile-menu-overlay[data-open="true"] .mobile-menu-panel {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-menu-nav {
+  display: grid;
+  gap: 12px;
+  margin-bottom: var(--app-space-3);
+}
+
+.mobile-menu-nav .nav-link {
+  padding: 12px 14px;
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
+  background: var(--app-surface);
+  display: block;
+}
+
+.mobile-menu-actions {
+  display: flex;
+  gap: 10px;
+}
+
+@media (min-width: 900px) {
+  .mobile-menu-overlay { 
+    display: none; 
+  }
+}
+
+/* -------------------- Icon Styles -------------------- */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* -------------------- Focus States -------------------- */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--app-focus-ring);
+  border-radius: 8px;
+}
+
+/* -------------------- WordPress Integration -------------------- */
+header.wp-block-template-part {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  position: sticky;
+  top: 0 !important; /* Force top position */
+  z-index: 9998; /* High z-index to stay on top */
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important; /* Remove any transforms that might cause issues */
+  /* Glass effect */
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+  /* Add a subtle background only for sticky visibility */
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Account for WordPress admin bar when logged in */
+.admin-bar header.wp-block-template-part {
+  top: 32px !important; /* Admin bar height on desktop */
+}
+
+@media screen and (max-width: 782px) {
+  .admin-bar header.wp-block-template-part {
+    top: 46px !important; /* Admin bar height on mobile */
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] header.wp-block-template-part {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+/* Fix potential overflow issues */
+header.wp-block-template-part {
+  overflow: visible !important;
+  min-height: auto !important;
+  height: auto !important;
+}
+
+/* Remove any transforms or negative margins on child elements */
+header.wp-block-template-part * {
+  transform: none !important;
+}
+
+/* Ensure the alignfull container is properly positioned */
+header.wp-block-template-part > .wp-block-group.alignfull {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  top: 0 !important;
+}
+
+/* Ensure the nav bar's child containers don't break sticky behavior */
+header.ote-app-bar-nav > .wp-block-group,
+header.wp-block-template-part > .wp-block-group {
+  /* Remove any overflow that might break sticky */
+  overflow: visible !important;
+}
+
+/* Ensure the alignfull container extends properly */
+header.ote-app-bar-nav .wp-block-group.alignfull {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* -------------------- Bottom Navigation (Mobile Only) -------------------- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none; /* Hidden by default, shown on mobile */
+  grid-template-columns: repeat(3, 1fr); /* Only 3 items: Home, News, Events */
+  border-top: 1px solid var(--app-border);
+  background: var(--app-surface);
+  /* Frosted glass effect like top nav */
+  background: color-mix(in oklab, var(--app-surface), transparent 10%);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  backdrop-filter: blur(12px) saturate(1.1);
+  z-index: 100;
+  padding: env(safe-area-inset-bottom) 0 0 0; /* Handle iPhone bottom safe area */
+}
+
+@media (max-width: 899px) {
+  .bottom-nav {
+    display: grid;
+  }
+}
+
+.bottom-nav__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px 14px 6px; /* Extra bottom padding for safe area */
+  color: var(--app-text-sec);
+  text-decoration: none;
+  transition: color var(--app-trans-fast), background var(--app-trans-fast);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bottom-nav__link:hover,
+.bottom-nav__link.is-active {
+  color: var(--app-brand);
+  background: color-mix(in oklab, var(--app-brand), transparent 95%);
+}
+
+.bottom-nav__link .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.bottom-nav__link span:not(.icon) {
+  font-size: 11px;
+  line-height: 1;
+}
+
+/* Style the WordPress navigation block */
+.ote-app-bar-nav .wp-block-navigation,
+.wp-block-navigation {
+  /* Always show the navigation block container (includes burger menu) */
+  display: flex;
+}
+
+/* Hide only the desktop navigation items on mobile */
+.ote-app-bar-nav .wp-block-navigation .wp-block-navigation__container,
+.wp-block-navigation .wp-block-navigation__container {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .ote-app-bar-nav .wp-block-navigation,
+  .wp-block-navigation {
+    display: flex;
+  }
+  
+  /* Show desktop navigation items on desktop */
+  .ote-app-bar-nav .wp-block-navigation .wp-block-navigation__container,
+  .wp-block-navigation .wp-block-navigation__container {
+    display: flex;
+  }
+}
+
+/* Style the WordPress navigation container */
+.ote-app-bar-nav .wp-block-navigation ul,
+.wp-block-navigation ul,
+.wp-block-navigation .wp-block-page-list,
+.wp-block-navigation__container {
+  gap: 4px !important; /* Bring navigation items closer together */
+  background: transparent !important; /* Remove any background */
+  background-color: transparent !important;
+}
+
+/* Remove background from list items */
+.wp-block-navigation li,
+.wp-block-navigation .wp-block-pages-list__item,
+.wp-block-navigation .wp-block-navigation-item {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Style navigation links within WordPress navigation block */
+.ote-app-bar-nav .wp-block-navigation .wp-block-navigation-item a,
+.wp-block-navigation .wp-block-navigation-item a,
+.wp-block-navigation .wp-block-pages-list__item__link,
+.wp-block-navigation-item__content {
+  padding: 8px 12px !important;
+  border-radius: 999px !important;
+  color: var(--app-text-sec) !important;
+  text-decoration: none !important;
+  background: transparent !important; /* Force transparent background */
+  background-color: transparent !important; /* Override any background-color */
+  transition: color var(--app-trans-fast), background var(--app-trans-fast);
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.ote-app-bar-nav .wp-block-navigation .wp-block-navigation-item a:hover,
+.ote-app-bar-nav .wp-block-navigation .wp-block-navigation-item a[aria-current="page"],
+.wp-block-navigation .wp-block-navigation-item a:hover,
+.wp-block-navigation .wp-block-navigation-item a[aria-current="page"],
+.wp-block-navigation .wp-block-pages-list__item__link:hover,
+.wp-block-navigation .wp-block-pages-list__item.current-menu-item .wp-block-pages-list__item__link {
+  background: color-mix(in oklab, var(--app-brand), transparent 88%) !important;
+  color: var(--app-text);
+}
+
+.ote-app-bar-nav .wp-block-navigation .wp-block-navigation-item a:focus,
+.ote-app-bar-nav .wp-block-navigation .wp-block-navigation-item a:focus-visible,
+.ote-app-bar-nav .wp-block-navigation .wp-block-navigation-item a:active,
+.wp-block-navigation .wp-block-navigation-item a:focus,
+.wp-block-navigation .wp-block-navigation-item a:focus-visible,
+.wp-block-navigation .wp-block-navigation-item a:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* WordPress navigation responsive elements */
+.wp-block-navigation__responsive-container-open {
+  display: none; /* Hidden by default (desktop) */
+}
+
+/* Remove white background from responsive container content */
+.wp-block-navigation__responsive-container,
+.wp-block-navigation__responsive-container-content,
+.wp-block-navigation__responsive-dialog {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* For desktop view - ensure no white backgrounds */
+@media (min-width: 900px) {
+  .wp-block-navigation__responsive-container-content ul,
+  .wp-block-navigation__responsive-container-content li,
+  .wp-block-navigation__responsive-container-content a {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+}
+
+/* Override WordPress inline styles */
+.wp-block-navigation__responsive-container-open[style] {
+  display: none !important; /* Force hide on desktop */
+}
+
+/* Show only the WordPress default mobile menu button on mobile screens */
+@media (max-width: 899px) {
+  /* Force hide the custom ote-mobile-menu-trigger to avoid duplicates */
+  .ote-mobile-menu-trigger {
+    display: none !important;
+  }
+  
+  /* Force show and style the WordPress default mobile menu button - with higher specificity */
+  .wp-block-navigation__responsive-container-open,
+  .wp-block-navigation__responsive-container-open[style],
+  .ote-app-bar-nav .wp-block-navigation__responsive-container-open {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: var(--app-text, #1e293b) !important;
+    cursor: pointer !important;
+    transition: background var(--app-trans-fast) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .wp-block-navigation__responsive-container-open:hover,
+  .wp-block-navigation__responsive-container-open[style]:hover {
+    background: var(--app-muted) !important;
+  }
+}
+
+/* Hide theme toggle on mobile since it's in the mobile menu */
+@media (max-width: 899px) {
+  .ote-dark-mode-toggle {
+    display: none !important;
+  }
+  
+  /* Target the specific div that contains only the theme toggle button */
+  #themeToggle {
+    display: none !important;
+  }
+  
+  /* Hide the parent paragraph and div that wrap the theme toggle */
+  p:has(#themeToggle) {
+    display: none !important;
+  }
+  
+  /* If the above doesn't work, try hiding the immediate parent div */
+  .wp-block-group:has(> p > #themeToggle) {
+    display: none !important;
+  }
+}
+
+/* Reduce gap between buttons on mobile */
+@media (max-width: 899px) {
+  /* Target the container holding search and theme toggle buttons */
+  .wp-block-group-is-layout-flex:has(#searchToggle):has(#themeToggle) {
+    gap: 4px !important; /* Reduce gap between buttons */
+  }
+  
+  /* Alternative selector if the above doesn't work */
+  .wp-container-core-group-is-layout-f4c28e8b {
+    gap: 4px !important;
+  }
+  
+  /* Target the parent groups containing the buttons */
+  .wp-block-group-is-layout-flex > .wp-block-group-is-layout-constrained {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Make the buttons themselves more compact on mobile */
+  #searchToggle,
+  #themeToggle {
+    padding: 8px !important;
+    margin: 0 !important;
+  }
+}
+
+/* Theme toggle styling */
+.ote-app-bar-nav [class*="dark-mode"] {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--app-radius-s);
+  cursor: pointer;
+  transition: background var(--app-trans-fast);
+}
+
+.ote-app-bar-nav [class*="dark-mode"]:hover {
+  background: var(--app-muted);
+}
+
+/* Ensure proper spacing when used with WordPress blocks */
+.ote-app-bar-nav + *,
+header.wp-block-template-part + *,
+header + * {
+  margin-top: 0 !important;
+}
+
+/* Remove any bottom margin from header */
+header.wp-block-template-part {
+  margin-bottom: 0 !important;
+}
+
+/* Force remove padding from all navbar elements using spacing-30 */
+header.wp-block-template-part [style*="--wp--preset--spacing--30"],
+header.wp-block-template-part .wp-block-group[style*="--wp--preset--spacing--30"] {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+/* Override inline styles for navbar groups */
+header.wp-block-template-part > .wp-block-group,
+header.wp-block-template-part .wp-block-group.alignfull {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+/* -------------------- Section Header Styling -------------------- */
+/* Apply this class to wp-block-group containers that hold section headers */
+.ote-section-header {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+
+/* Make headings inside the section header bigger */
+.ote-section-header h1,
+.ote-section-header h2,
+.ote-section-header h3,
+.ote-section-header h4,
+.ote-section-header h5,
+.ote-section-header h6,
+.ote-section-header .wp-block-heading {
+  font-size: 1.5rem !important; /* Default size increase */
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+/* Specific sizes for different heading levels */
+.ote-section-header h1 {
+  font-size: 2.5rem !important;
+}
+
+.ote-section-header h2 {
+  font-size: 2rem !important;
+}
+
+.ote-section-header h3 {
+  font-size: 1.75rem !important;
+}
+
+.ote-section-header h4 {
+  font-size: 1.5rem !important;
+}
+
+.ote-section-header h5 {
+  font-size: 1.25rem !important;
+}
+
+.ote-section-header h6 {
+  font-size: 1.125rem !important;
+}
+
+/* Mobile responsive sizes */
+@media (max-width: 768px) {
+  .ote-section-header h1 {
+    font-size: 2rem !important;
+  }
+  
+  .ote-section-header h2 {
+    font-size: 1.75rem !important;
+  }
+  
+  .ote-section-header h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  .ote-section-header h4 {
+    font-size: 1.25rem !important;
+  }
+  
+  .ote-section-header h5 {
+    font-size: 1.125rem !important;
+  }
+  
+  .ote-section-header h6 {
+    font-size: 1rem !important;
+  }
+}
+

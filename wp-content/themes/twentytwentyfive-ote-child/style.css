@@ -1,0 +1,870 @@
+/*
+Theme Name: Over the Edge - Twenty Twenty-Five Child
+Description: A child theme of Twenty Twenty-Five designed for the Over the Edge student newspaper, featuring modern design elements, dark mode toggle, and card-based layouts.
+Template: twentytwentyfive
+Version: 1.0.0
+Requires at least: 6.4
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: ote-child-theme
+Tags: newspaper, student, education, dark-mode, responsive, accessibility-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+/* Import parent theme styles */
+@import url("../twentytwentyfive/style.css");
+
+/* Over the Edge Design System - Now loaded via enqueue.php to avoid double-loading */
+
+/* Fix alignfull with has-global-padding overflow on all screen sizes */
+.has-global-padding > .alignfull {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Specific fix for wp-block-cover alignfull */
+.wp-block-cover.alignfull,
+.has-global-padding > .wp-block-cover.alignfull {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Ensure entry-content doesn't overflow */
+.entry-content.alignfull.has-global-padding,
+.wp-block-post-content.alignfull.has-global-padding {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+
+/* Additional WordPress-specific overrides */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--bg), transparent 20%);
+    backdrop-filter: blur(12px) saturate(1.1);
+    border-bottom: 1px solid color-mix(in oklab, var(--border), transparent 20%);
+}
+
+.site-content {
+    min-height: calc(100vh - 200px);
+    padding: var(--space-6) 0;
+}
+
+/* WordPress Block Editor specific styles */
+.wp-block-post-template {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.wp-block-post-template li {
+    margin: 0;
+}
+
+/* Ensure proper card styling in post lists */
+.wp-block-query .wp-block-post-template .wp-block-group.is-style-ote-card,
+.wp-block-query .wp-block-post-template .wp-block-group.is-style-ote-card-animated {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Content area styling */
+.card__content {
+    padding: var(--space-4);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card__content .wp-block-buttons {
+    margin-top: auto;
+}
+
+/* Pagination styling */
+.wp-block-query-pagination {
+    margin-top: var(--space-8);
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    align-items: center;
+}
+
+.wp-block-query-pagination a,
+.wp-block-query-pagination .page-numbers {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-s);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    transition: all var(--trans-fast);
+}
+
+.wp-block-query-pagination a:hover,
+.wp-block-query-pagination .page-numbers:hover {
+    background: var(--muted);
+    border-color: var(--brand);
+}
+
+.wp-block-query-pagination .current {
+    background: var(--brand);
+    color: white;
+    border-color: var(--brand);
+}
+
+/* Search form styling */
+.search-form {
+    display: flex;
+    gap: var(--space-2);
+    margin: var(--space-4) 0;
+}
+
+.search-form input[type="search"] {
+    flex: 1;
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-s);
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font-ui);
+}
+
+.search-form input[type="search"]:focus {
+    outline: none;
+}
+
+/* Dark mode: Keep darker background but remove confusing border */
+[data-theme="dark"] .search-form input[type="search"] {
+    border: none;
+    background: var(--muted, #334155);
+}
+
+[data-theme="dark"] .search-form input[type="search"]:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.search-form button[type="submit"] {
+    padding: var(--space-3) var(--space-4);
+    background: var(--brand);
+    color: white;
+    border: none;
+    border-radius: var(--radius-s);
+    cursor: pointer;
+    transition: background var(--trans-fast);
+}
+
+.search-form button[type="submit"]:hover {
+    background: color-mix(in oklab, var(--brand), black 10%);
+}
+
+/* Page header styling */
+.page-header {
+    margin-bottom: var(--space-8);
+    text-align: center;
+}
+
+.page-title {
+    margin: 0;
+    color: var(--text);
+}
+
+/* No results section */
+.no-results {
+    text-align: center;
+    padding: var(--space-12) var(--space-4);
+}
+
+.no-results .page-content {
+    margin-top: var(--space-4);
+    color: var(--text-sec);
+}
+
+/* Ensure proper spacing for main content */
+.content-area {
+    padding: 0;
+}
+
+/* Club Meta Grid Layout */
+.club-meta-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin: var(--space-8) 0;
+    padding: var(--space-8) 0;
+    background: none !important;
+    justify-content: flex-start !important; /* Left align the cards */
+    align-items: flex-start !important; /* Align cards to top */
+}
+
+/* Override WordPress constrained layout centering */
+.club-meta-cards.is-layout-constrained,
+.wp-block-group.club-meta-cards.is-layout-constrained {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+}
+
+/* Ensure cards inside are also left-aligned */
+.club-meta-cards > * {
+    margin-left: 0 !important;
+    text-align: left !important;
+}
+
+.club-meta-card {
+    background: var(--surface);
+    border-radius: var(--radius-m);
+    padding: var(--space-6);
+    box-shadow: var(--elev-1);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-4);
+    align-items: start;
+    border: 1px solid var(--border);
+    transition: all var(--trans-fast);
+    /* Consistent sizing for inline display */
+    flex: 0 0 auto; /* Don't grow or shrink */
+    width: 280px; /* Fixed width for consistency */
+    min-height: 120px; /* Minimum height for consistency */
+}
+
+/* Icon positioned in first column, spanning both rows */
+.club-meta-card .club-meta-icon {
+    grid-column: 1;
+    grid-row: 1 / 3; /* Span both rows */
+    justify-self: center; /* Center the icon in its column */
+    align-self: start; /* Align to top */
+}
+
+/* Heading positioned in second column, first row */
+.club-meta-card > .wp-block-heading,
+.club-meta-card h2.wp-block-heading {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    align-self: center;
+    justify-self: start; /* Align to start of grid cell */
+    text-align: left !important; /* Force left alignment */
+    width: 100%; /* Ensure full width */
+    display: block; /* Ensure block display */
+}
+
+/* Content positioned in second column, second row */
+.club-meta-card > .club-meta-content,
+.club-meta-card > .social-links {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* Force left alignment for social links container */
+.club-meta-card .social-links {
+    justify-content: flex-start !important;
+    text-align: left !important;
+}
+
+/* Override WordPress constrained layout for items within cards */
+.club-meta-card .is-layout-constrained {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+.club-meta-card:hover {
+    box-shadow: var(--elev-2);
+    transform: translateY(-2px);
+}
+
+.club-meta-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: color-mix(in oklab, var(--brand), transparent 90%);
+    border-radius: var(--radius-s);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand);
+}
+
+.club-meta-content h3 {
+    font-weight: 600;
+    margin: 0 0 var(--space-2);
+    color: var(--text);
+    font-size: 1.125rem;
+}
+
+.club-meta-content p {
+    margin: 0;
+    color: var(--text-sec);
+    line-height: 1.5;
+}
+
+.club-meta-content a {
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    margin-top: var(--space-2);
+    display: inline-block;
+}
+
+.club-meta-content a:hover {
+    text-decoration: underline;
+}
+
+/* Social Media Links with Icons */
+.social-links {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: var(--brand);
+    color: white !important;
+    text-decoration: none;
+    border-radius: var(--radius-xs);
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all var(--trans-fast);
+}
+
+.social-link:hover {
+    background: var(--brand-2, color-mix(in oklab, var(--brand), black 15%));
+    color: white !important;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.social-link .icon {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hide cards when required fields are missing */
+.club-meta-card[data-hide="true"] {
+    display: none;
+}
+
+/* Initially hide all cards until JavaScript processes them */
+.club-meta-card,
+.wp-block-group.club-meta-card,
+.wp-block-group.club-meta-card.has-global-padding,
+.wp-block-group.club-meta-card.has-global-padding.is-layout-constrained {
+    display: none;
+}
+
+/* Show cards that have been processed and have content - increased specificity */
+.club-meta-card.has-content,
+.wp-block-group.club-meta-card.has-content,
+.wp-block-group.club-meta-card.has-content.has-global-padding,
+.wp-block-group.club-meta-card.has-content.has-global-padding.is-layout-constrained,
+.wp-block-group.club-meta-card.has-content.has-global-padding.is-layout-constrained.wp-block-group-is-layout-constrained,
+.club-meta-cards .club-meta-card.has-content,
+.club-meta-cards .wp-block-group.club-meta-card.has-content {
+    display: grid !important;
+}
+
+/* Hide social links without content */
+.social-link.hidden {
+    display: none !important;
+}
+
+/* Club Hero Section - Background extends to page margins */
+.wp-block-group.alignfull.club-hero-section {
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-12) 0 !important;
+    position: relative;
+    overflow: visible !important;
+}
+
+.wp-block-group.alignfull.club-hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    right: -100vw;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        color-mix(in oklab, var(--brand), transparent 95%) 0%, 
+        color-mix(in oklab, var(--brand), transparent 98%) 100%);
+    z-index: -10;
+}
+
+/* Content container - centered grid layout */
+.club-hero-section.is-layout-constrained {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 var(--space-6) !important;
+    display: grid !important;
+    grid-template-columns: 200px 1fr !important;
+    gap: var(--space-8) !important;
+    align-items: center !important;
+    justify-content: start !important;
+}
+
+/* Featured Image (Logo) Styling - Clean rounded image only */
+.club-hero-section .wp-block-post-featured-image {
+    width: 200px !important;
+    height: 200px !important;
+    margin: 0 !important;
+    justify-self: center;
+    align-self: center;
+    position: relative;
+    z-index: 1;
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+.club-hero-section .wp-block-post-featured-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    position: relative;
+    z-index: 1;
+    border-radius: 0;
+}
+
+/* Override any WordPress theme circular image styles */
+.club-hero-section .wp-block-post-featured-image img.wp-post-image,
+.club-hero-section .wp-block-post-featured-image img.attachment-post-thumbnail {
+    border-radius: 0 !important;
+}
+
+/* Fallback placeholder when no featured image exists */
+.club-hero-section:not(:has(.wp-block-post-featured-image))::after,
+.club-hero-section .wp-block-post-featured-image:empty::after {
+    content: '';
+    width: 200px;
+    height: 200px;
+    background: var(--muted);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-l);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1;
+    justify-self: center;
+    align-self: center;
+    position: relative;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='1.5'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Cpath d='M21 15l-3.086-3.086a2 2 0 00-2.828 0L6 21'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60px 60px;
+}
+
+/* Alternative: Show placeholder when image fails to load */
+.club-hero-section .wp-block-post-featured-image img[src=""],
+.club-hero-section .wp-block-post-featured-image img:not([src]) {
+    display: none;
+}
+
+.club-hero-section .wp-block-post-featured-image:has(img[src=""]),
+.club-hero-section .wp-block-post-featured-image:has(img:not([src])) {
+    background: var(--muted);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-l);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='1.5'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Cpath d='M21 15l-3.086-3.086a2 2 0 00-2.828 0L6 21'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60px 60px;
+}
+
+/* Info container - second grid item, left aligned content */
+.club-hero-section > .wp-block-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: 0 !important;
+    margin: 0 !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    justify-self: start;
+}
+
+/* Add Organization Type Ribbon - Above title */
+.club-hero-section .wp-block-post-title::before {
+    content: "Student Organization";
+    display: block;
+    background: var(--brand);
+    color: white;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-xs);
+    font-size: 0.875rem;
+    font-weight: 500;
+    width: fit-content;
+    margin-bottom: var(--space-3);
+}
+
+/* Club Title - Left aligned */
+.club-hero-section .wp-block-post-title {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    color: var(--text);
+    line-height: 1.2;
+    text-align: left !important;
+    order: 1;
+    align-self: start !important;
+}
+
+/* Club Description - Ensure it's directly under the title */
+.club-hero-section .organization-field-block:first-of-type {
+    font-size: 1.125rem !important;
+    color: var(--text-sec);
+    line-height: 1.6;
+    margin: var(--space-2) 0 0 0 !important;
+    text-align: left !important;
+    display: block !important;
+    order: 2;
+}
+
+/* Links Container - Email and website buttons, left justified */
+.club-hero-section .wp-block-group:last-child {
+    display: flex !important;
+    gap: var(--space-3) !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start !important;
+    margin-top: var(--space-4) !important;
+    order: 3;
+    width: 100%;
+}
+
+/* Website Button (if exists) */
+.club-hero-section a[href^="http"]:not([href^="http://scratch2.local"]):not([href*="mailto"]) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    background: var(--brand);
+    color: white !important;
+    border-radius: var(--radius-m);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--trans-fast);
+    border: 2px solid var(--brand);
+}
+
+.club-hero-section a[href^="http"]:not([href^="http://scratch2.local"]):not([href*="mailto"]):hover {
+    background: color-mix(in oklab, var(--brand), black 10%);
+    transform: translateY(-1px);
+    box-shadow: var(--elev-1);
+}
+
+/* Email Button Style - Rectangular with rounded corners */
+.club-hero-section a[href^="mailto"],
+.btn--outline {
+    display: inline-flex !important;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 12px 20px;
+    background: transparent !important;
+    color: var(--brand) !important;
+    border: 2px solid var(--brand) !important;
+    border-radius: 8px !important;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: all var(--trans-fast);
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+/* Add email icon before the email text */
+.club-hero-section a[href^="mailto"]::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232d5f3f' stroke-width='2'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+    flex-shrink: 0;
+}
+
+.club-hero-section a[href^="mailto"]:hover,
+.btn--outline:hover {
+    background: color-mix(in oklab, var(--brand), transparent 90%) !important;
+    border-color: color-mix(in oklab, var(--brand), black 10%) !important;
+    color: var(--brand) !important;
+}
+
+/* Update icon color on hover */
+.club-hero-section a[href^="mailto"]:hover::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232d5f3f' stroke-width='2'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E");
+}
+
+/* Organization Grid Placeholders - Match exact 80x80px size */
+.ote-organization-grid .wp-block-post-template > li:not(:has(.wp-block-post-featured-image))::before {
+    content: '' !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 80px !important;
+    height: 80px !important;
+    aspect-ratio: 1 !important;
+    margin: var(--space-4, 16px) 0 var(--space-4, 16px) var(--space-4, 16px) !important;
+    background: var(--muted) !important;
+    border: 2px solid var(--border) !important;
+    border-radius: var(--radius-s, 10px) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='1.5'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Cpath d='M21 15l-3.086-3.086a2 2 0 00-2.828 0L6 21'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 24px 24px !important;
+    font-size: 0 !important;
+    color: transparent !important;
+    flex-shrink: 0 !important;
+}
+
+/* Ensure proper spacing for organization grid items with real images */
+.ote-organization-grid .wp-block-post-featured-image {
+    margin: var(--space-4, 16px) 0 var(--space-4, 16px) var(--space-4, 16px) !important;
+}
+
+
+/* Mobile Responsive Layout for Hero Section */
+@media (max-width: 768px) {
+    .club-hero-section.is-layout-constrained {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-4) !important;
+        text-align: center;
+        padding: 0 var(--space-4) !important;
+    }
+    
+    .club-hero-section .wp-block-post-featured-image {
+        width: 150px !important;
+        height: 150px !important;
+        justify-self: center !important;
+        margin: 0 auto !important;
+    }
+    
+    .club-hero-section > .wp-block-group {
+        justify-self: center !important;
+        align-items: center !important;
+        text-align: center;
+    }
+    
+    .club-hero-section .wp-block-post-title {
+        font-size: 2rem !important;
+        text-align: center !important;
+        margin: revert !important; /* Remove margin: 0 override on mobile */
+        align-self: revert !important; /* Remove align-self: start override on mobile */
+    }
+    
+    .club-hero-section .organization-field-block {
+        text-align: center !important;
+        padding: 0 var(--space-4) !important;
+        margin: var(--space-4) 0 !important;
+    }
+    
+    .club-hero-section .organization-field-block .organization-field-content {
+        text-align: center !important;
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .club-hero-section .wp-block-group:last-child {
+        justify-content: center !important;
+        padding: 0 var(--space-4) !important;
+        margin-top: var(--space-6) !important;
+    }
+    
+    .club-hero-section .wp-block-post-title::before {
+        margin: 0 auto var(--space-3) auto;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .club-meta-cards {
+        flex-direction: column; /* Stack vertically on mobile */
+        gap: var(--space-4);
+        padding: var(--space-6) 0;
+    }
+    
+    .club-meta-card {
+        padding: var(--space-4);
+        width: 100%; /* Full width on mobile */
+        min-height: 100px; /* Smaller min height on mobile */
+    }
+    
+    .social-links {
+        justify-content: flex-start;
+    }
+}
+
+/* For tablets and small desktops */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .club-meta-card {
+        width: 260px; /* Slightly smaller on tablets */
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .site-content {
+        padding: var(--space-4) 0;
+    }
+    
+    .container {
+        padding-inline: var(--space-3);
+    }
+    
+    body {
+        padding-bottom: 80px; /* Account for bottom navigation */
+    }
+    
+    /* Fix alignfull with has-global-padding overflow on mobile */
+    .entry-content.alignfull.has-global-padding,
+    .wp-block-post-content.alignfull.has-global-padding,
+    .has-global-padding > .alignfull {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+            box-sizing: border-box !important;
+    }
+    
+    /* Ensure proper padding is maintained */
+    .wp-block-post-content.has-global-padding {
+        padding-left: var(--wp--style--root--padding-left, 1rem) !important;
+        padding-right: var(--wp--style--root--padding-right, 1rem) !important;
+    }
+    
+    /* General fix for all alignfull elements to prevent overflow */
+    .alignfull {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    /* Prevent horizontal scroll on body and html */
+    html, body {
+            max-width: 100% !important;
+    }
+    
+    
+    /* Fix hero section background overflow on mobile */
+    .wp-block-group.alignfull.club-hero-section {
+        overflow-x: hidden;
+    }
+    
+    .wp-block-group.alignfull.club-hero-section::before {
+        left: 0;
+        right: 0;
+    }
+    
+    /* Make email buttons full width on mobile with larger size */
+    .club-hero-section a[href^="mailto"],
+    .organization-field-block a[href^="mailto"],
+    .btn--outline {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        margin-bottom: var(--space-2);
+        padding: 16px 24px !important;
+        font-size: 1rem !important;
+        font-weight: 500 !important;
+        border-radius: var(--radius-s) !important;
+        border-width: 1px !important;
+        border-style: solid !important;
+        background: transparent !important;
+        transition: all var(--trans-fast) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: var(--space-2) !important;
+    }
+    
+    .club-hero-section a[href^="mailto"]:hover,
+    .organization-field-block a[href^="mailto"]:hover,
+    .btn--outline:hover {
+        background: var(--muted) !important;
+        border-color: color-mix(in oklab, var(--brand), black 10%) !important;
+        transform: translateY(-1px) !important;
+    }
+    
+    .club-hero-section .wp-block-group:last-child {
+        width: 100%;
+    }
+    
+    .club-hero-section .wp-block-group:last-child .organization-field-block {
+        width: 100%;
+    }
+    
+    /* Add margin from edge for cards and content on mobile */
+    .club-meta-cards {
+        margin-bottom: var(--space-6) !important;
+    }
+    
+    .club-meta-card {
+        margin: 0 var(--space-4) var(--space-4) var(--space-4) !important;
+        width: calc(100% - calc(var(--space-4) * 2)) !important;
+    }
+    
+    /* Add margin for main content columns */
+    .wp-block-columns {
+        margin: 0 var(--space-4) !important;
+    }
+    
+    .wp-block-column {
+        margin-bottom: var(--space-4) !important;
+    }
+    
+    /* Fix organization grid placeholder sizing on mobile */
+    .ote-organization-grid .wp-block-post-template > li:not(:has(.wp-block-post-featured-image))::before {
+        margin: 0 var(--space-3) var(--space-3) 0 !important;
+        position: relative;
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    /* Ensure real images match placeholder size and spacing on mobile */
+    .ote-organization-grid .wp-block-post-featured-image {
+        margin: 0 var(--space-3) var(--space-3) 0 !important;
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .ote-organization-grid .wp-block-post-featured-image img {
+        width: 60px !important;
+        height: 60px !important;
+        object-fit: cover !important;
+    }
+}
+

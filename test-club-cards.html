@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Club Cards</title>
+    <style>
+        /* Initially hide all cards until JavaScript processes them */
+        .club-meta-card {
+            display: none;
+        }
+
+        /* Show cards that have been processed and have content */
+        .club-meta-card.has-content {
+            display: grid !important;
+            background: #f0f0f0;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .social-link.hidden {
+            display: none;
+        }
+
+        .social-link-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            background: #2d5f3f;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            margin: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Test rendered HTML structure -->
+    <div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+        <div class="wp-block-group club-meta-cards has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+            
+            <!-- Membership Card -->
+            <div class="wp-block-group club-meta-card has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+                <div class="wp-block-group club-meta-icon has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+                    <p>ICON</p>
+                </div>
+                <h2 class="wp-block-heading">Membership</h2>
+                <div class="wp-block-group club-meta-content has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"></div>
+            </div>
+
+            <!-- Connect Card with Instagram -->
+            <div class="wp-block-group club-meta-card has-global-padding is-layout-constrained wp-block-group-is-layout-constrained has-content">
+                <div class="wp-block-group club-meta-icon has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+                    <p>ICON</p>
+                </div>
+                <h2 class="wp-block-heading">Connect</h2>
+                <div class="wp-block-group social-links has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+                    
+                    <!-- Empty social link -->
+                    <div class="wp-block-group social-link has-global-padding is-layout-constrained wp-block-group-is-layout-constrained hidden">
+                        <p>ICON1</p>
+                    </div>
+
+                    <!-- Instagram with content -->
+                    <div class="social-link-button" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0px; background: var(--brand, #2d5f3f); color: white; text-decoration: none; border-radius: 10px; transition: 0.2s; cursor: pointer; border: none; margin: 4px;">
+                        <p style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; margin: 0px; padding: 0px;">INSTAGRAM</p>
+                    </div>
+
+                    <!-- More empty social links -->
+                    <div class="wp-block-group social-link has-global-padding is-layout-constrained wp-block-group-is-layout-constrained hidden">
+                        <p>ICON3</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Executive Card -->
+            <div class="wp-block-group club-meta-card has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+                <div class="wp-block-group club-meta-icon has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+                    <p>ICON</p>
+                </div>
+                <h2 class="wp-block-heading">Executive Contact Info</h2>
+                <div class="wp-block-group club-meta-content has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check what's visible
+        const cards = document.querySelectorAll('.club-meta-card');
+        console.log('Total cards:', cards.length);
+        
+        cards.forEach((card, index) => {
+            const heading = card.querySelector('h2');
+            const isVisible = window.getComputedStyle(card).display !== 'none';
+            const hasContentClass = card.classList.contains('has-content');
+            console.log(`Card ${index} (${heading ? heading.textContent : 'no heading'}):`, {
+                hasContentClass,
+                isVisible,
+                classes: card.className
+            });
+        });
+    </script>
+</body>
+</html>

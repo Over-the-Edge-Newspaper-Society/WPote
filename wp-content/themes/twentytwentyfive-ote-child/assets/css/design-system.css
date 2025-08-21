@@ -1,0 +1,610 @@
+/* Over the Edge Design System
+   - Light/Dark via CSS variables on html[data-theme]
+   - Typography: Serif headlines, Inter UI/body
+   - Components: buttons, chips, cards, tabs, fields, calendar
+   - Polished visuals: gradients, shadows, focus rings, motion
+*/
+
+/* -------------------- Fonts -------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap");
+
+/* -------------------- Tokens -------------------- */
+:root {
+  --radius-xs: 6px;
+  --radius-s: 10px;
+  --radius-m: 14px;
+  --radius-l: 20px;
+
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --elev-1: 0 2px 8px rgba(0,0,0,.08);
+  --elev-2: 0 8px 24px rgba(0,0,0,.10);
+  --elev-3: 0 16px 40px rgba(0,0,0,.16);
+
+  --trans-fast: 160ms cubic-bezier(.2,.6,.2,1);
+  --trans-med: 240ms cubic-bezier(.2,.6,.2,1);
+  --focus-ring: 0 0 0 3px color-mix(in oklab, var(--brand), transparent 70%);
+
+  /* Typography */
+  --font-ui: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-serif: "Source Serif 4", ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Color (Light defaults) */
+  --brand: #2d5f3f;            /* primary green */
+  --brand-2: #4a7c59;          /* lighter green for secondary accents */
+  --accent-blue: #0ea5e9;      /* optional accent for badges */
+  --bg: oklch(99% 0.01 250);
+  --bg-elev: oklch(98% 0.01 250);
+  --surface: #ffffff;
+  --text: oklch(18% 0.02 250);
+  --text-sec: oklch(45% 0.03 250);
+  --border: #e2e8f0;           /* subtle slate border */
+  --muted: #f8fafc;            /* soft section/background */
+
+  --success: #35C291;
+  --warning: #E7A83A;
+  --danger: #F06A5E;
+
+  /* Organic SVG texture colors */
+  --scribble-stroke: #2d5f3f;
+  --scribble-stroke-2: #4a7c59;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand: #4a7c59;
+    --brand-2: #86a58e;
+    --bg: #0f172a;             /* deep slate */
+    --bg-elev: #141922;
+    --surface: #1e293b;
+    --text: #e6eaf2;
+    --text-sec: #b9c0cf;
+    --border: #334155;
+    --muted: #141922;
+    color-scheme: dark;
+  }
+}
+
+/* Explicit theme override via data-theme on html */
+html[data-theme="light"] {
+  --brand: #2d5f3f;
+  --brand-2: #4a7c59;
+  --accent-blue: #0ea5e9;
+  --bg: #ffffff;
+  --bg-elev: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --text-sec: #64748b;
+  --border: #e2e8f0;
+  --muted: #f8fafc;
+  --scribble-stroke: #2d5f3f;
+  --scribble-stroke-2: #4a7c59;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --brand: #4a7c59;            /* slightly lighter green for dark mode surfaces */
+  --brand-2: #86a58e;
+  --accent-blue: #6FA3FF;
+  --bg: #0f172a;
+  --bg-elev: #141922;
+  --surface: #1e293b;
+  --text: #e6eaf2;
+  --text-sec: #b9c0cf;
+  --border: #334155;
+  --muted: #141922;
+  --scribble-stroke: #4a7c59;
+  --scribble-stroke-2: #86a58e;
+  color-scheme: dark;
+}
+
+/* -------------------- Base -------------------- */
+*,
+*::before,
+*::after { 
+  box-sizing: border-box; 
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg { 
+  display: inline-block; 
+}
+
+a { 
+  color: inherit; 
+  text-decoration: none;
+  transition: color var(--trans-fast);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+button, input { 
+  font-family: inherit; 
+  color: inherit; 
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 8px;
+}
+
+.container {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+.text-secondary { 
+  color: var(--text-sec); 
+}
+
+/* Typography Classes */
+.headline-xl {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.headline-l {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 2.6vw, 32px);
+  letter-spacing: -0.01em;
+}
+
+.headline-s {
+  font-family: var(--font-serif);
+  font-size: 18px;
+}
+
+.body-l { 
+  font-size: 18px; 
+  color: var(--text-sec); 
+}
+
+.body-m { 
+  font-size: 16px; 
+}
+
+.body-s { 
+  font-size: 14px; 
+  color: var(--text-sec); 
+}
+
+/* -------------------- Buttons -------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: none;
+  border-radius: var(--radius-s);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  text-decoration: none;
+}
+
+.btn--primary {
+  background: var(--brand);
+  color: white;
+}
+
+.btn--primary:hover {
+  background: color-mix(in oklab, var(--brand), black 10%);
+  transform: translateY(-1px);
+  box-shadow: var(--elev-2);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--brand);
+  border: 2px solid var(--brand);
+}
+
+.btn--outline:hover {
+  background: var(--brand);
+  color: white;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+}
+
+.btn--ghost:hover {
+  background: var(--muted);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: var(--radius-s);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.icon-btn:hover {
+  background: var(--muted);
+  color: var(--brand);
+}
+
+.icon-btn .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* -------------------- Chips -------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  text-decoration: none;
+}
+
+.chip--outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.chip--outline:hover {
+  background: var(--muted);
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+.chip.is-active {
+  background: var(--brand);
+  color: white;
+}
+
+/* -------------------- Brand -------------------- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.brand__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand__name {
+  font-family: var(--font-serif);
+}
+
+/* -------------------- Navigation -------------------- */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  color: var(--text);
+  font-weight: 500;
+  border-radius: var(--radius-s);
+  transition: all var(--trans-fast);
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  background: var(--muted);
+  color: var(--brand);
+}
+
+.nav-link.is-active {
+  background: var(--brand);
+  color: white;
+}
+
+/* -------------------- Sections -------------------- */
+.section {
+  padding: var(--space-12) 0;
+}
+
+.section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+}
+
+.section__head--between {
+  align-items: flex-start;
+}
+
+.section-title {
+  margin: 0;
+}
+
+/* -------------------- Theme Toggle -------------------- */
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: var(--radius-s);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.theme-toggle:hover {
+  background: var(--muted);
+  color: var(--brand);
+}
+
+.theme-toggle__icon {
+  position: absolute;
+  transition: all var(--trans-med);
+}
+
+.theme-toggle__icon--sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle__icon--moon {
+  opacity: 0;
+  transform: rotate(180deg) scale(0.5);
+}
+
+[data-theme="dark"] .theme-toggle__icon--sun {
+  opacity: 0;
+  transform: rotate(-180deg) scale(0.5);
+}
+
+[data-theme="dark"] .theme-toggle__icon--moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* -------------------- WordPress Block Overrides -------------------- */
+.wp-block-group.is-style-ote-hero {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+  color: white;
+  padding: var(--space-12) var(--space-6);
+  border-radius: var(--radius-l);
+  text-align: center;
+}
+
+.wp-block-group.is-style-ote-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4vw, 48px);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.wp-block-group.is-style-ote-section {
+  padding: var(--space-8) 0;
+}
+
+.wp-block-button.is-style-ote-primary .wp-block-button__link {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--brand), white 8%), var(--brand));
+  border: 1px solid color-mix(in oklab, var(--brand), black 25%);
+  color: #fff;
+  border-radius: var(--radius-s);
+  padding: 10px 12px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  transition: transform var(--trans-fast), background var(--trans-fast), color var(--trans-fast), border-color var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.wp-block-button.is-style-ote-primary .wp-block-button__link:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 12px 32px rgba(0,0,0,.18);
+  transform: translateY(-1px);
+}
+
+.wp-block-button.is-style-ote-primary .wp-block-button__link:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.wp-block-button.is-style-ote-outline .wp-block-button__link {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-s);
+  padding: var(--space-3) var(--space-5);
+  font-weight: 500;
+  transition: all var(--trans-fast);
+}
+
+.wp-block-button.is-style-ote-outline .wp-block-button__link:hover {
+  background: rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.wp-block-button.is-style-ote-ghost .wp-block-button__link {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: var(--radius-s);
+  padding: var(--space-3) var(--space-5);
+  font-weight: 500;
+  transition: all var(--trans-fast);
+}
+
+.wp-block-button.is-style-ote-ghost .wp-block-button__link:hover {
+  background: var(--muted);
+}
+
+/* -------------------- Responsive -------------------- */
+@media (max-width: 768px) {
+  .container {
+    padding-inline: var(--space-3);
+  }
+  
+  .section {
+    padding: var(--space-8) 0;
+  }
+  
+  .section__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  
+  .headline-xl {
+    font-size: clamp(24px, 6vw, 32px);
+  }
+  
+  .headline-l {
+    font-size: clamp(20px, 4vw, 24px);
+  }
+}
+
+/* -------------------- Article Page Classes -------------------- */
+.article__eyebrow { 
+  display: inline-flex; 
+  gap: 10px; 
+  align-items: center; 
+  color: var(--text-secondary, #64748b);
+  font-size: var(--text-sm, 0.875rem);
+}
+
+.card__tag {
+  font-size: 12px;
+  color: var(--brand, #2d5f3f);
+  background: color-mix(in oklab, var(--brand, #2d5f3f), transparent 90%);
+  padding: 2px 8px;
+  border-radius: var(--radius-s, 6px);
+  border: 1px solid color-mix(in oklab, var(--brand, #2d5f3f), transparent 80%);
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 240ms cubic-bezier(.2,.6,.2,1);
+}
+
+.card__tag:hover {
+  background: color-mix(in oklab, var(--brand, #2d5f3f), transparent 80%);
+  border-color: color-mix(in oklab, var(--brand, #2d5f3f), transparent 60%);
+}
+
+[data-theme="dark"] .card__tag {
+  background: color-mix(in oklab, var(--brand, #4a9d7a), transparent 85%);
+  color: var(--brand, #4a9d7a);
+  border-color: color-mix(in oklab, var(--brand, #4a9d7a), transparent 70%);
+}
+
+[data-theme="dark"] .card__tag:hover {
+  background: color-mix(in oklab, var(--brand, #4a9d7a), transparent 75%);
+  border-color: color-mix(in oklab, var(--brand, #4a9d7a), transparent 50%);
+}
+
+.body-s { 
+  font-size: 14px; 
+  color: var(--text-secondary, #64748b); 
+}
+
+.body-m { 
+  font-size: 16px; 
+}
+
+.body-l { 
+  font-size: 18px; 
+  color: var(--text-secondary, #64748b); 
+}
+
+/* Author block styling */
+.wp-block-post-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+}
+
+.wp-block-post-author__avatar {
+  margin-right: 0;
+}
+
+.wp-block-post-author__avatar img {
+  border-radius: 50%;
+  border: 2px solid var(--border, #e2e8f0);
+  display: block;
+}
+
+.wp-block-post-author__name,
+.wp-block-post-author__name a {
+  font-weight: 700;
+  color: var(--foreground, #0f172a);
+  text-decoration: none;
+}
+
+.wp-block-post-author__name a:hover {
+  color: var(--brand, #2d5f3f);
+}
+
+[data-theme="dark"] .wp-block-post-author__avatar img {
+  border-color: var(--border, #334155);
+}
+
+[data-theme="dark"] .wp-block-post-author__name a {
+  color: var(--foreground, #f8fafc);
+}
+
+[data-theme="dark"] .wp-block-post-author__name a:hover {
+  color: var(--brand, #4a9d7a);
+}
+
+/* -------------------- Reduced Motion -------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

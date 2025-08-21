@@ -1,0 +1,463 @@
+/*
+ * Organization Grid Styles
+ * Moved from inline styles to external CSS file
+ */
+
+/* Custom Organization Card Grid */
+.ote-organization-grid .wp-block-post-template {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: var(--space-4, 16px);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Mobile: Fix grid container margins */
+@media (max-width: 639px) {
+    .ote-organization-grid {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100vw !important;
+        overflow-x: hidden;
+    }
+    
+    .ote-organization-grid .wp-block-post-template {
+        gap: 12px;
+        padding: 0 16px;
+        margin: 0;
+        max-width: 100%;
+    }
+}
+
+/* Desktop: Multi-column layout */
+@media (min-width: 640px) {
+    .ote-organization-grid .wp-block-post-template {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1000px) {
+    .ote-organization-grid .wp-block-post-template {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.ote-organization-grid .wp-block-post-template > li {
+    background: var(--surface, #ffffff);
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: var(--radius-m, 14px);
+    padding: 0;
+    box-shadow: var(--elev-1, 0 2px 8px rgba(0,0,0,.08));
+    transition: transform 240ms cubic-bezier(.2,.6,.2,1), box-shadow 240ms cubic-bezier(.2,.6,.2,1), border-color 240ms cubic-bezier(.2,.6,.2,1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Remove any focus outlines from the entire card */
+.ote-organization-grid .wp-block-post-template > li:focus {
+    outline: none !important;
+    box-shadow: var(--elev-2, 0 8px 24px rgba(0,0,0,.15)) !important;
+}
+
+/* Tilt hover animation */
+.ote-organization-grid .wp-block-post-template > li:hover {
+    transform: translateY(-3px) translateX(1px) rotate(-0.4deg);
+    box-shadow: var(--elev-2, 0 8px 24px rgba(0,0,0,.15));
+    border-color: color-mix(in oklab, var(--brand, #2d5f3f), transparent 30%);
+}
+
+/* Keep card layout vertical with logo on top */
+.ote-organization-grid .wp-block-post-template > li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Mobile: Horizontal layout with text beside logo */
+@media (max-width: 639px) {
+    .ote-organization-grid .wp-block-post-template > li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 0;
+        align-items: start;
+        padding: var(--space-4, 16px);
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .ote-organization-grid .wp-block-post-template > li:hover {
+        transform: translateY(-2px);
+        rotate: 0deg;
+    }
+}
+
+.ote-organization-grid .wp-block-post-featured-image {
+    margin: var(--space-4, 16px) 0 0 var(--space-4, 16px);
+    width: 80px;
+    height: 80px;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--brand, #2d5f3f), var(--brand-2, #4a7c59));
+    border-radius: var(--radius-s, 10px);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ote-organization-grid .wp-block-post-featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-s, 10px);
+    display: block;
+}
+
+/* Placeholder when no image is present */
+.ote-organization-grid .wp-block-post-featured-image:not(:has(img))::after {
+    content: "🏛️";
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Create placeholder when featured image block doesn't exist at all */
+.ote-organization-grid .wp-block-post-template > li:not(:has(.wp-block-post-featured-image))::before {
+    content: "🏛️";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: var(--space-4, 16px) 0 0 var(--space-4, 16px);
+    background: linear-gradient(135deg, var(--brand, #2d5f3f), var(--brand-2, #4a7c59));
+    border-radius: var(--radius-s, 10px);
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.8);
+    flex-shrink: 0;
+}
+
+/* Mobile: Image positioned in first column, spanning all rows, centered vertically */
+@media (max-width: 639px) {
+    .ote-organization-grid .wp-block-post-featured-image {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        width: 64px;
+        height: 64px;
+        margin: 0 var(--space-4, 16px) 0 0;
+        border-radius: var(--radius-s, 10px);
+        aspect-ratio: 1;
+        align-self: center;
+    }
+    
+    .ote-organization-grid .wp-block-post-featured-image img {
+        border-radius: var(--radius-s, 10px);
+    }
+    
+    .ote-organization-grid .wp-block-post-featured-image:not(:has(img))::after {
+        font-size: 24px;
+    }
+    
+    .ote-organization-grid .wp-block-post-template > li:not(:has(.wp-block-post-featured-image))::before {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        width: 64px;
+        height: 64px;
+        margin: 0 var(--space-4, 16px) 0 0;
+        border-radius: var(--radius-s, 10px);
+        font-size: 24px;
+        align-self: center;
+    }
+}
+
+.ote-organization-grid .wp-block-post-title {
+    padding: var(--space-4, 16px) var(--space-4, 16px) var(--space-2, 8px) !important;
+    margin: 0 !important;
+    font-size: clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.75), 20px) !important;
+    font-weight: 600 !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
+}
+
+.ote-organization-grid .wp-block-post-title a {
+    text-decoration: none;
+    color: var(--text, #1e293b);
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.ote-organization-grid .wp-block-post-title a:hover {
+    color: var(--brand, #2d5f3f);
+}
+
+.ote-organization-grid .wp-block-post-title a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.ote-organization-grid .wp-block-post-title a:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Mobile: Title in second column, first row */
+@media (max-width: 639px) {
+    .ote-organization-grid .wp-block-post-title {
+        grid-column: 2;
+        grid-row: 1;
+        padding: 0 !important;
+        line-height: 1.2 !important;
+        margin: 0 0 var(--space-2, 8px) 0 !important;
+        align-self: start;
+    }
+}
+
+.ote-organization-grid .wp-block-unbc-organization-field {
+    padding: 0 var(--space-4, 16px);
+    margin: 0 0 var(--space-4, 16px) 0;
+    flex: 1;
+}
+
+.ote-organization-grid .organization-field-content {
+    color: var(--text-sec, #64748b);
+    font-size: 13px;
+    line-height: 1.5;
+    display: block;
+}
+
+/* Mobile: Description in second column, second row */
+@media (max-width: 639px) {
+    .ote-organization-grid .wp-block-unbc-organization-field {
+        grid-column: 2;
+        grid-row: 2;
+        padding: 0;
+        margin: 0 0 var(--space-3, 12px) 0;
+        flex: 1;
+    }
+    
+    .ote-organization-grid .organization-field-content {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}
+
+.ote-organization-grid .wp-block-buttons {
+    padding: 0 var(--space-4, 16px) var(--space-4, 16px);
+    margin: 0;
+    margin-top: auto;
+}
+
+.ote-organization-grid .wp-block-button {
+    margin: 0;
+}
+
+.ote-organization-grid .wp-block-button__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: linear-gradient(180deg, color-mix(in oklab, var(--brand, #2d5f3f), white 8%), var(--brand, #2d5f3f));
+    color: #fff;
+    border: 1px solid color-mix(in oklab, var(--brand, #2d5f3f), black 25%);
+    border-radius: var(--radius-s, 10px);
+    padding: 10px 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 160ms cubic-bezier(.2,.6,.2,1);
+}
+
+/* Add arrow icon */
+.ote-organization-grid .wp-block-button__link::after {
+    content: "→";
+    margin-left: 2px;
+    transition: transform 160ms cubic-bezier(.2,.6,.2,1);
+}
+
+.ote-organization-grid .wp-block-button__link:hover {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--brand, #2d5f3f), white 15%), color-mix(in oklab, var(--brand, #2d5f3f), white 5%));
+    border-color: color-mix(in oklab, var(--brand, #2d5f3f), black 15%);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.18);
+}
+
+.ote-organization-grid .wp-block-button__link:hover::after {
+    transform: translateX(3px);
+}
+
+.ote-organization-grid .wp-block-button__link:active {
+    transform: translateY(1px) scale(0.99);
+}
+
+.ote-organization-grid .wp-block-button__link:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand, #2d5f3f), transparent 85%) !important;
+}
+
+.ote-organization-grid .wp-block-button__link:focus-visible {
+    outline: none !important;
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand, #2d5f3f), transparent 85%) !important;
+}
+
+/* Mobile: Button in second column, third row */
+@media (max-width: 639px) {
+    .ote-organization-grid .wp-block-buttons {
+        grid-column: 2;
+        grid-row: 3;
+        padding: 0;
+        margin: 0;
+        align-self: end;
+    }
+    
+    .ote-organization-grid .wp-block-button__link {
+        padding: 6px 8px;
+        font-size: 13px;
+    }
+}
+
+/* Organization Search Bar */
+.ote-org-search-wrapper {
+    margin-bottom: var(--space-6, 24px);
+    position: relative;
+}
+
+.ote-org-search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.ote-org-search-field {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.ote-org-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-sec);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.ote-org-search-input {
+    width: 100%;
+    padding: 12px 16px 12px 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    transition: all var(--trans-fast);
+}
+
+.ote-org-search-input:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand), transparent 80%);
+}
+
+.ote-org-search-count {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: var(--text-sec);
+    background: var(--muted);
+    padding: 2px 6px;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+/* Dark mode support for organization cards */
+[data-theme="dark"] .ote-organization-grid .wp-block-post-template > li {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .ote-organization-grid .wp-block-post-template > li:hover {
+    border-color: var(--text-sec);
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1), 0 0 0 1px var(--text-sec);
+}
+
+[data-theme="dark"] .ote-organization-grid .wp-block-post-title a {
+    color: var(--text);
+}
+
+[data-theme="dark"] .ote-organization-grid .wp-block-post-title a:hover {
+    color: var(--text);
+    opacity: 0.8;
+}
+
+[data-theme="dark"] .ote-organization-grid .organization-field-content {
+    color: var(--text-sec);
+}
+
+/* Dark mode button styles for organization grid - consistent with brand colors */
+[data-theme="dark"] .ote-organization-grid .wp-block-button__link {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--brand, #4a7c59), white 8%), var(--brand, #4a7c59));
+    color: #fff;
+    border-color: color-mix(in oklab, var(--brand, #4a7c59), black 25%);
+    box-shadow: 0 8px 24px rgba(0,0,0,.2);
+}
+
+[data-theme="dark"] .ote-organization-grid .wp-block-button__link:hover {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--brand, #4a7c59), white 15%), color-mix(in oklab, var(--brand, #4a7c59), white 5%));
+    border-color: color-mix(in oklab, var(--brand, #4a7c59), black 15%);
+    color: #fff;
+    box-shadow: 0 12px 32px rgba(0,0,0,.25);
+}
+
+[data-theme="dark"] .ote-organization-grid .wp-block-button__link:active {
+    transform: translateY(1px) scale(0.99);
+}
+
+[data-theme="dark"] .ote-organization-grid .wp-block-button__link:focus {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand, #4a7c59), transparent 85%) !important;
+}
+
+[data-theme="dark"] .ote-organization-grid .wp-block-button__link:focus-visible {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand, #4a7c59), transparent 85%) !important;
+}
+
+/* Utility class for responsive padding */
+.ote-padding {
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .ote-padding {
+        padding: 0 var(--space-4, 16px);
+    }
+}
+
+/* OTE Content - Constrained layout utility class */
+.ote-content.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+    max-width: var(--wp--style--global--content-size);
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .ote-organization-grid .wp-block-post-template {
+        grid-template-columns: 1fr;
+        gap: var(--space-4, 16px);
+    }
+}

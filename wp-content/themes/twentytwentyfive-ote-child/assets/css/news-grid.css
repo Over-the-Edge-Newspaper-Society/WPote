@@ -1,0 +1,396 @@
+/* ================== NEWS GRID STYLING (MATCHES TEST SITE) ================== */
+/* Base news grid layout - matches test site card-grid structure */
+.ote-news-grid .wp-block-post-template {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: var(--space-4, 16px);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Mobile margins for news grid */
+@media (max-width: 768px) {
+    .ote-news-grid .wp-block-post-template {
+        padding: 0 var(--space-4, 16px);
+        gap: var(--space-3, 12px);
+    }
+}
+
+/* Individual news card styling - matches test site .card */
+.ote-news-grid .wp-block-post-template > li {
+    border: 1px solid var(--border, #e2e8f0);
+    background: var(--surface, #ffffff);
+    border-radius: var(--radius-m, 14px);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    transition: transform 240ms cubic-bezier(.2,.6,.2,1), box-shadow 240ms cubic-bezier(.2,.6,.2,1), border-color 240ms cubic-bezier(.2,.6,.2,1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    outline: none;
+}
+
+.ote-news-grid .wp-block-post-template > li:focus {
+    outline: none;
+}
+
+/* Minimum height for cards without images */
+.ote-news-grid .wp-block-post-template > li:not(:has(.wp-block-post-featured-image)) {
+    min-height: 200px;
+}
+
+/* Organic scribble border effect (matches test site) */
+.ote-news-grid .wp-block-post-template > li::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: calc(var(--radius-m, 14px) + 2px);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M2,2 Q25,8 48,2 Q75,10 98,2 L98,25 Q90,48 98,75 Q92,90 98,98 L75,98 Q48,90 25,98 Q10,92 2,98 L2,75 Q8,48 2,25 Q10,10 2,2 Z' stroke='%232d5f3f' stroke-width='1.2' fill='none' stroke-linecap='round' opacity='0.0'/%3E%3C/svg%3E") no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 240ms cubic-bezier(.2,.6,.2,1);
+}
+
+.ote-news-grid .wp-block-post-template > li:hover {
+    transform: translateY(-3px) translateX(1px) rotate(-0.4deg);
+    box-shadow: 0 8px 24px rgba(0,0,0,.10);
+    border-color: color-mix(in oklab, var(--brand, #2d5f3f), transparent 30%);
+}
+
+.ote-news-grid .wp-block-post-template > li:hover::before {
+    opacity: 1;
+}
+
+/* Featured image styling (matches card__media) */
+.ote-news-grid .wp-block-post-featured-image {
+    aspect-ratio: 16 / 9;
+    background: var(--muted, #f8fafc);
+    overflow: hidden;
+    margin: 0;
+    border-radius: var(--radius-m, 14px) var(--radius-m, 14px) 0 0;
+}
+
+.ote-news-grid .wp-block-post-featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0 !important;
+}
+
+/* Placeholder for posts without featured image (matches organization grid implementation) */
+.ote-news-grid .wp-block-post-template > li:not(:has(.wp-block-post-featured-image))::after {
+    content: '';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 9;
+    background: var(--muted, #f8fafc);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='1.5'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Cpath d='M21 15l-3.086-3.086a2 2 0 00-2.828 0L6 21'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 48px 48px;
+    order: -1;
+}
+
+
+/* All content elements get side padding */
+.ote-news-grid .wp-block-post-template > li > :not(.wp-block-post-featured-image) {
+    padding-left: var(--space-4, 16px) !important;
+    padding-right: var(--space-4, 16px) !important;
+}
+
+/* First content element after image gets top padding */
+.ote-news-grid .wp-block-post-template > li > .wp-block-post-featured-image + * {
+    padding-top: var(--space-4, 16px) !important;
+}
+
+/* Posts without featured image - first element gets top padding */
+.ote-news-grid .wp-block-post-template > li:not(:has(.wp-block-post-featured-image)) > :first-child {
+    padding-top: var(--space-4, 16px) !important;
+}
+
+/* Last content element gets bottom padding */
+.ote-news-grid .wp-block-post-template > li > :last-child {
+    padding-bottom: var(--space-4, 16px) !important;
+}
+
+/* Spacing between content elements */
+.ote-news-grid .wp-block-post-template > li > .wp-block-group {
+    margin-bottom: var(--space-3, 12px);
+}
+
+.ote-news-grid .wp-block-post-template > li > .wp-block-post-title {
+    margin-bottom: var(--space-3, 12px);
+}
+
+.ote-news-grid .wp-block-post-template > li > .wp-block-buttons {
+    margin-top: auto;
+}
+
+/* News metadata (matches card__meta) */
+.ote-news-grid .wp-block-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--text-sec, #64748b);
+    font-size: 14px;
+    margin: 0;
+}
+
+.ote-news-grid .wp-block-post-date {
+    margin: 0;
+    font-size: inherit;
+    color: inherit;
+}
+
+.ote-news-grid .wp-block-post-terms {
+    margin: 0;
+    font-size: inherit;
+}
+
+.ote-news-grid .wp-block-post-terms a {
+    display: inline-block;
+    padding: 2px 8px;
+    background: color-mix(in oklab, var(--brand, #2d5f3f), transparent 90%);
+    color: var(--brand, #2d5f3f);
+    border: 1px solid color-mix(in oklab, var(--brand, #2d5f3f), transparent 70%);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 4px;
+    transition: all 240ms cubic-bezier(.2,.6,.2,1);
+}
+
+.ote-news-grid .wp-block-post-terms a:hover {
+    background: color-mix(in oklab, var(--brand, #2d5f3f), transparent 80%);
+    border-color: color-mix(in oklab, var(--brand, #2d5f3f), transparent 60%);
+}
+
+/* News title (matches card__title) */
+.ote-news-grid .wp-block-post-title {
+    margin: 0;
+    padding: 0 !important;
+}
+
+.ote-news-grid .wp-block-post-title a {
+    font-family: var(--font-serif, "Source Serif 4", Georgia, serif);
+    font-size: 18px;
+    line-height: 1.3;
+    color: #0b1220;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.ote-news-grid .wp-block-post-title a:hover {
+    color: var(--brand, #2d5f3f);
+}
+
+/* News button styling (matches card__actions) */
+.ote-news-grid .wp-block-buttons {
+    display: flex;
+    gap: var(--space-2, 8px);
+    align-items: center;
+    margin: 0;
+    padding: 0 !important;
+}
+
+.ote-news-grid .wp-block-button .wp-block-button__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+    padding: var(--space-3, 12px) var(--space-4, 16px);
+    border-radius: var(--radius-s, 10px);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 240ms cubic-bezier(.2,.6,.2,1);
+    border: none;
+}
+
+/* Primary button style */
+.ote-news-grid .wp-block-button.is-style-ote-primary .wp-block-button__link {
+    background: var(--brand, #2d5f3f);
+    color: white;
+}
+
+.ote-news-grid .wp-block-button.is-style-ote-primary .wp-block-button__link:hover {
+    background: color-mix(in oklab, var(--brand, #2d5f3f), black 10%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+
+/* Outline button style */
+.ote-news-grid .wp-block-button.is-style-ote-outline .wp-block-button__link {
+    background: transparent;
+    color: var(--brand, #2d5f3f);
+    border: 2px solid var(--brand, #2d5f3f);
+}
+
+.ote-news-grid .wp-block-button.is-style-ote-outline .wp-block-button__link:hover {
+    background: var(--brand, #2d5f3f);
+    color: white;
+}
+
+/* Dark mode support */
+html[data-theme="dark"] .ote-news-grid .wp-block-post-template > li::before {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M2,2 Q25,8 48,2 Q75,10 98,2 L98,25 Q90,48 98,75 Q92,90 98,98 L75,98 Q48,90 25,98 Q10,92 2,98 L2,75 Q8,48 2,25 Q10,10 2,2 Z' stroke='%234a7c59' stroke-width='1.2' fill='none' stroke-linecap='round' opacity='0.0'/%3E%3C/svg%3E") no-repeat;
+    background-size: 100% 100%;
+}
+
+html[data-theme="dark"] .ote-news-grid .wp-block-post-title a {
+    color: var(--text, #e6eaf2);
+}
+
+html[data-theme="dark"] .ote-news-grid .wp-block-post-terms a {
+    background: color-mix(in oklab, var(--brand, #4a7c59), transparent 90%);
+    color: var(--brand, #4a7c59);
+    border: 1px solid color-mix(in oklab, var(--brand, #4a7c59), transparent 70%);
+}
+
+html[data-theme="dark"] .ote-news-grid .wp-block-post-terms a:hover {
+    background: color-mix(in oklab, var(--brand, #4a7c59), transparent 80%);
+    border-color: color-mix(in oklab, var(--brand, #4a7c59), transparent 60%);
+}
+
+@media (prefers-color-scheme: dark) {
+    .ote-news-grid .wp-block-post-template > li::before {
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M2,2 Q25,8 48,2 Q75,10 98,2 L98,25 Q90,48 98,75 Q92,90 98,98 L75,98 Q48,90 25,98 Q10,92 2,98 L2,75 Q8,48 2,25 Q10,10 2,2 Z' stroke='%234a7c59' stroke-width='1.2' fill='none' stroke-linecap='round' opacity='0.0'/%3E%3C/svg%3E") no-repeat;
+        background-size: 100% 100%;
+    }
+    
+    .ote-news-grid .wp-block-post-title a {
+        color: var(--text, #e6eaf2);
+    }
+    
+    .ote-news-grid .wp-block-post-terms a {
+        background: color-mix(in oklab, var(--brand, #4a7c59), transparent 90%);
+        color: var(--brand, #4a7c59);
+        border: 1px solid color-mix(in oklab, var(--brand, #4a7c59), transparent 70%);
+    }
+    
+    .ote-news-grid .wp-block-post-terms a:hover {
+        background: color-mix(in oklab, var(--brand, #4a7c59), transparent 80%);
+        border-color: color-mix(in oklab, var(--brand, #4a7c59), transparent 60%);
+    }
+}
+
+/* Mobile compact layout (matches test site card-grid--compact) */
+@media (max-width: 639px) {
+    .ote-news-grid .wp-block-post-template > li {
+        display: grid;
+        grid-template-columns: 112px 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas: 
+            "image meta"
+            "image title"
+            "image buttons";
+        align-items: stretch;
+        border-radius: var(--radius-s, 10px);
+        overflow: hidden;
+    }
+    
+    /* Featured image takes left area spanning all rows */
+    .ote-news-grid .wp-block-post-template > li > .wp-block-post-featured-image {
+        grid-area: image;
+    }
+    
+    /* Content elements get specific grid areas to prevent overlap */
+    .ote-news-grid .wp-block-post-template > li > .wp-block-group {
+        grid-area: meta;
+        align-self: start;
+    }
+    
+    .ote-news-grid .wp-block-post-template > li > .wp-block-post-title {
+        grid-area: title;
+        align-self: center;
+    }
+    
+    .ote-news-grid .wp-block-post-template > li > .wp-block-buttons {
+        grid-area: buttons;
+        align-self: end;
+    }
+    
+    .ote-news-grid .wp-block-post-featured-image {
+        aspect-ratio: auto;
+        height: 100%;
+        margin: 0;
+        border-radius: var(--radius-s, 10px) 0 0 var(--radius-s, 10px);
+        align-self: stretch;
+    }
+    
+    .ote-news-grid .wp-block-post-featured-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    
+    /* Set minimum height for cards without images */
+    .ote-news-grid .wp-block-post-template > li:not(:has(.wp-block-post-featured-image)) {
+        min-height: 140px;
+    }
+    
+    /* Mobile placeholder - positioned like an image on the left, spanning full height */
+    .ote-news-grid .wp-block-post-template > li:not(:has(.wp-block-post-featured-image))::after {
+        grid-area: image;
+        width: 112px;
+        height: 100%;
+        min-height: 140px;
+        background-size: 32px 32px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='1.5'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Cpath d='M21 15l-3.086-3.086a2 2 0 00-2.828 0L6 21'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: var(--muted, #f8fafc);
+        border-radius: var(--radius-s, 10px) 0 0 var(--radius-s, 10px);
+        align-self: stretch;
+    }
+    
+    /* Mobile content padding */
+    .ote-news-grid .wp-block-post-template > li > :not(.wp-block-post-featured-image) {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+    
+    /* First content element in mobile (metadata) */
+    .ote-news-grid .wp-block-post-template > li > .wp-block-group {
+        padding-top: 12px !important;
+    }
+    
+    /* Last content element in mobile (buttons) */
+    .ote-news-grid .wp-block-post-template > li > .wp-block-buttons {
+        padding-bottom: 12px !important;
+    }
+    
+    .ote-news-grid .wp-block-post-title a {
+        font-size: 17px;
+        line-height: 1.2;
+    }
+    
+    .ote-news-grid .wp-block-group {
+        font-size: 12px;
+        gap: 8px;
+    }
+    
+    .ote-news-grid .wp-block-button .wp-block-button__link {
+        padding: 4px 8px;
+        font-size: 11px;
+        border-radius: 6px;
+    }
+}
+
+/* Desktop responsive columns (matches test site) */
+@media (min-width: 640px) {
+    .ote-news-grid .wp-block-post-template {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1000px) {
+    .ote-news-grid .wp-block-post-template {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}

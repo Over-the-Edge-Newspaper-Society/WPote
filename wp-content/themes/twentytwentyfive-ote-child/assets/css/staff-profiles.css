@@ -1,0 +1,563 @@
+/* Staff Profile Styles for Over the Edge Theme */
+
+/* ==================== Hero Background ==================== */
+.hero-bg-light {
+  position: relative;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+}
+
+/* Create the background that extends full width */
+.hero-bg-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    color-mix(in oklab, var(--brand), transparent 95%) 0%, 
+    color-mix(in oklab, var(--brand), transparent 98%) 100%);
+  z-index: -1;
+}
+
+/* Alternative: Also support ID selector if template uses it */
+#hero-bg-light {
+  position: relative;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+}
+
+#hero-bg-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    color-mix(in oklab, var(--brand), transparent 95%) 0%, 
+    color-mix(in oklab, var(--brand), transparent 98%) 100%);
+  z-index: -1;
+}
+
+/* ==================== Staff Hero Section ==================== */
+.staff-hero-section {
+  padding: var(--space-12) 0;
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-8);
+}
+
+.staff-profile-hero {
+  display: grid !important;
+  grid-template-columns: 200px 1fr !important;
+  gap: var(--space-8) !important;
+  align-items: center !important;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* ==================== Staff Photo ==================== */
+.staff-photo-container img,
+.staff-photo-large img {
+  width: 200px !important;
+  height: 200px !important;
+  object-fit: cover !important;
+  border-radius: var(--radius-l) !important;
+  border: 3px solid var(--surface) !important;
+  box-shadow: var(--elev-2) !important;
+  display: block !important;
+}
+
+/* ==================== Staff Info ==================== */
+.wp-block-post-title {
+  font-family: var(--font-serif) !important;
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 var(--space-3) 0 !important;
+  color: var(--text) !important;
+  line-height: 1.2 !important;
+}
+
+.staff-position {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: var(--brand) !important;
+  margin-bottom: var(--space-4) !important;
+  display: block !important;
+}
+
+.staff-position .staff-field-content::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232d5f3f' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Ccircle cx='12' cy='12' r='6'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3C/svg%3E");
+  background-size: contain;
+  vertical-align: middle;
+}
+
+/* ==================== Basic Info ==================== */
+.staff-basic-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--space-2) !important;
+}
+
+.staff-basic-info .staff-field-block {
+  font-size: 1.1rem;
+  color: var(--text-sec);
+}
+
+/* Email button styling */
+.staff-basic-info .staff-field-block:first-child .staff-field-content a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: transparent;
+  color: var(--brand);
+  border: 2px solid var(--brand);
+  border-radius: var(--radius-s);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--trans-fast);
+}
+
+.staff-basic-info .staff-field-block:first-child .staff-field-content a::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232d5f3f' stroke-width='2'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E");
+  background-size: contain;
+}
+
+.staff-basic-info .staff-field-block:first-child .staff-field-content a:hover {
+  background: color-mix(in oklab, var(--brand), transparent 90%);
+  border-color: color-mix(in oklab, var(--brand), black 10%);
+}
+
+/* Location icon */
+.staff-basic-info .staff-field-block:last-child .staff-field-content::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232d5f3f' stroke-width='2'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
+  background-size: contain;
+  vertical-align: middle;
+}
+
+/* ==================== Academic Info Bar ==================== */
+.staff-academic-info {
+  background: var(--muted) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-m) !important;
+  padding: var(--space-6) !important;
+  margin: var(--space-8) 0 !important;
+  display: flex !important;
+  gap: var(--space-8) !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.staff-academic-info .staff-field-block {
+  font-weight: 500;
+  color: var(--text);
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: var(--space-2) !important;
+  margin: 0 !important;
+  position: relative !important;
+}
+
+/* Add separator between items */
+.staff-academic-info .staff-field-block:not(:last-child)::after {
+  content: '•';
+  position: absolute;
+  right: calc(var(--space-8) / -2);
+  color: var(--border);
+  font-weight: normal;
+}
+
+.staff-academic-info .staff-field-block:nth-child(1)::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%232d5f3f' stroke-width='2'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'/%3E%3Cpath d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'/%3E%3C/svg%3E");
+  background-size: contain;
+  flex-shrink: 0;
+}
+
+.staff-academic-info .staff-field-block:nth-child(2)::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%232d5f3f' stroke-width='2'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
+  background-size: contain;
+  flex-shrink: 0;
+}
+
+.staff-academic-info .staff-field-block:nth-child(3)::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%232d5f3f' stroke-width='2'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E");
+  background-size: contain;
+  flex-shrink: 0;
+}
+
+.staff-academic-info .staff-field-block:nth-child(3) .staff-field-content::before {
+  content: 'With OTE since ';
+}
+
+/* ==================== Content Layout ==================== */
+.staff-content-columns {
+  margin-top: var(--space-8) !important;
+  gap: var(--space-8) !important;
+}
+
+/* ==================== Sidebar Styling ==================== */
+.staff-profile-sidebar {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--space-6) !important;
+}
+
+.sidebar-card {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-m) !important;
+  padding: var(--space-6) !important;
+  box-shadow: var(--elev-1) !important;
+}
+
+/* ==================== Academic Details Sidebar ==================== */
+.sidebar-section .academic-info .staff-field-block {
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-3);
+  display: block;
+  width: 100%;
+}
+
+.sidebar-section .academic-info .staff-field-block:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.sidebar-section .academic-info .staff-field-label {
+  font-weight: 600;
+  color: var(--text);
+  display: inline-block;
+  margin-right: var(--space-2);
+}
+
+.sidebar-section .academic-info .staff-field-content {
+  color: var(--text-sec);
+  display: inline;
+}
+
+/* Hide duplicate academic info in sidebar if it's in the hero */
+.sidebar-section .staff-academic-info.info-bar {
+  display: none !important;
+}
+
+/* ==================== Fun Facts ==================== */
+.staff-fun-facts .staff-field-block {
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-3);
+  display: block;
+  width: 100%;
+}
+
+.staff-fun-facts .staff-field-block:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.staff-fun-facts .staff-field-label {
+  font-weight: 600;
+  color: var(--text);
+  display: inline-block;
+  margin-right: var(--space-2);
+}
+
+.staff-fun-facts .staff-field-content {
+  color: var(--text-sec);
+  display: inline;
+}
+
+/* ==================== Skills Section ==================== */
+.staff-skills-section {
+  margin-bottom: var(--space-8);
+}
+
+.staff-skills .staff-field-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* If skills are comma-separated, style them as chips */
+.staff-skills .staff-field-content::after {
+  content: "";
+  display: block;
+  width: 100%;
+}
+
+/* ==================== Quote Section ==================== */
+.staff-quote-section {
+  margin: var(--space-8) 0;
+}
+
+.staff-quote .staff-field-content {
+  font-size: 1.2rem !important;
+  font-style: italic !important;
+  text-align: center !important;
+  color: var(--text-sec) !important;
+  border-left: 4px solid var(--brand) !important;
+  padding: var(--space-6) var(--space-8) !important;
+  background: var(--muted) !important;
+  border-radius: var(--radius-m) !important;
+  position: relative !important;
+  display: block !important;
+  margin: var(--space-4) 0 !important;
+}
+
+.staff-quote .staff-field-content::before {
+  content: '"' !important;
+  font-size: 3rem !important;
+  color: var(--brand) !important;
+  position: absolute !important;
+  top: -10px !important;
+  left: var(--space-4) !important;
+  font-family: var(--font-serif) !important;
+}
+
+/* ==================== Articles Section ==================== */
+.staff-articles-section {
+  margin-bottom: var(--space-8);
+}
+
+.staff-recent-articles .wp-block-post-template {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--space-6) !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.staff-recent-articles .wp-block-post-template li {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-m) !important;
+  padding: var(--space-5) !important;
+  transition: all var(--trans-fast) !important;
+  margin: 0 !important;
+}
+
+.staff-recent-articles .wp-block-post-template li:hover {
+  box-shadow: var(--elev-2) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ==================== Social Links Override ==================== */
+.club-meta-cards .social-links {
+  display: flex !important;
+  gap: var(--space-2) !important;
+}
+
+.social-link {
+  background: var(--brand) !important;
+  color: white !important;
+  padding: var(--space-2) var(--space-3) !important;
+  border-radius: var(--radius-xs) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  transition: all var(--trans-fast) !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: var(--space-2) !important;
+}
+
+.social-link:hover {
+  background: color-mix(in oklab, var(--brand), black 10%) !important;
+  transform: translateY(-1px) !important;
+}
+
+.social-link svg {
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
+}
+
+/* ==================== Conditional Visibility ==================== */
+
+/* Hide empty staff fields */
+.staff-field-block:not(:has(.staff-field-content:not(:empty))) {
+  display: none !important;
+}
+
+/* Hide sections with no visible content */
+.staff-academic-info:not(:has(.staff-field-content:not(:empty))) {
+  display: none !important;
+}
+
+.staff-skills-section:not(:has(.staff-field-content:not(:empty))) {
+  display: none !important;
+}
+
+.staff-quote-section:not(:has(.staff-field-content:not(:empty))) {
+  display: none !important;
+}
+
+.staff-fun-facts:not(:has(.staff-field-content:not(:empty))) {
+  display: none !important;
+}
+
+.club-meta-card:not(:has(.staff-field-content:not(:empty))) {
+  display: none !important;
+}
+
+/* Hide social links without content */
+.social-link:not(:has(.staff-field-content:not(:empty))) {
+  display: none !important;
+}
+
+/* ==================== Typography Overrides ==================== */
+.staff-hero-section h2,
+.staff-hero-section h3,
+.staff-hero-section h4 {
+  font-family: var(--font-serif) !important;
+  color: var(--text) !important;
+}
+
+.staff-profile-sidebar h2,
+.staff-profile-sidebar h3,
+.staff-profile-sidebar h4 {
+  font-family: var(--font-serif) !important;
+  color: var(--text) !important;
+  margin-top: 0 !important;
+  margin-bottom: var(--space-4) !important;
+  font-size: 1.25rem !important;
+}
+
+/* Clean up heading sizes */
+.staff-about-section h3,
+.staff-articles-section h3 {
+  font-size: 1.75rem !important;
+  margin-bottom: var(--space-6) !important;
+}
+
+.staff-skills-section h4,
+.sidebar-card h4 {
+  font-size: 1.25rem !important;
+  margin-bottom: var(--space-4) !important;
+}
+
+/* ==================== Mobile Responsive ==================== */
+@media (max-width: 768px) {
+  .staff-profile-hero {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: var(--space-6) !important;
+    padding: 0 var(--space-4) !important;
+  }
+  
+  .staff-photo-container img,
+  .staff-photo-large img {
+    width: 150px !important;
+    height: 150px !important;
+    margin: 0 auto !important;
+  }
+  
+  .wp-block-post-title {
+    font-size: 2rem !important;
+    text-align: center !important;
+  }
+  
+  /* Academic info bar with side margins on mobile */
+  .staff-academic-info {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--space-4) !important;
+    margin-left: var(--space-4) !important;
+    margin-right: var(--space-4) !important;
+  }
+  
+  /* Main content column with side margins */
+  .staff-content-columns {
+    margin: 0 !important;
+    padding: 0 var(--space-4) !important;
+  }
+  
+  /* Main column sections with proper spacing */
+  .staff-about-section,
+  .staff-skills-section,
+  .staff-articles-section,
+  .staff-quote-section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-bottom: var(--space-6) !important;
+  }
+  
+  /* Ensure sidebar cards have proper margins */
+  .sidebar-card {
+    margin-left: var(--space-4) !important;
+    margin-right: var(--space-4) !important;
+    margin-bottom: var(--space-4) !important;
+  }
+  
+  /* Hero background full width on mobile */
+  #hero-bg-light::before,
+  .hero-bg-light::before {
+    left: 0 !important;
+    right: 0 !important;
+  }
+  
+  /* Ensure columns stack properly on mobile */
+  .wp-block-columns.staff-content-columns {
+    flex-direction: column !important;
+  }
+  
+  .wp-block-column {
+    flex-basis: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* ==================== Override WordPress Default Spacing ==================== */
+.staff-hero-section .is-layout-constrained,
+.staff-hero-section .has-global-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.staff-profile-sidebar .has-global-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* ==================== Ensure Proper Image Display ==================== */
+.staff-photo-container figure,
+.staff-photo-container .wp-block-post-featured-image {
+  margin: 0 !important;
+  padding: 0 !important;
+}

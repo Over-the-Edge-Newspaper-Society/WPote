@@ -1,0 +1,123 @@
+/* Moving Arrow Icon for "View Details" Buttons */
+
+/* Target buttons containing "View Details" text */
+.wp-block-button__link[href*="clubs/"]:has-text("View Details"),
+.wp-block-button__link.wp-element-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* More specific targeting for View Details buttons */
+.wp-block-button a[href*="clubs/"].wp-element-button,
+a.wp-element-button[href*="clubs/"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 16px !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: #2d5f3f !important;
+  color: white !important;
+  border: none !important;
+}
+
+/* Add arrow icon after the text */
+.wp-block-button a[href*="clubs/"].wp-element-button::after,
+a.wp-element-button[href*="clubs/"]::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0);
+  margin-left: 4px;
+}
+
+/* Hover effect - move arrow to the right */
+.wp-block-button a[href*="clubs/"].wp-element-button:hover::after,
+a.wp-element-button[href*="clubs/"]:hover::after {
+  transform: translateX(4px);
+}
+
+/* Additional hover effects for the button */
+.wp-block-button a[href*="clubs/"].wp-element-button:hover,
+a.wp-element-button[href*="clubs/"]:hover {
+  background: #336847 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45, 95, 63, 0.3);
+}
+
+/* Alternative method - using content text detection */
+.wp-block-button__link.wp-element-button {
+  position: relative;
+}
+
+/* Target any button link containing "View Details" in the text */
+.wp-block-button__link.wp-element-button[href*="clubs/"]:not([class*="no-arrow"]) {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 16px 10px 16px !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: #2d5f3f !important;
+  color: white !important;
+  border: none !important;
+}
+
+/* Add moving arrow via pseudo-element */
+.wp-block-button__link.wp-element-button[href*="clubs/"]:not([class*="no-arrow"])::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0);
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+
+/* Hover animations */
+.wp-block-button__link.wp-element-button[href*="clubs/"]:not([class*="no-arrow"]):hover::after {
+  transform: translateX(4px);
+}
+
+.wp-block-button__link.wp-element-button[href*="clubs/"]:not([class*="no-arrow"]):hover {
+  background: #336847 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45, 95, 63, 0.3);
+  padding-right: 20px !important;
+}
+
+/* Active state */
+.wp-block-button__link.wp-element-button[href*="clubs/"]:not([class*="no-arrow"]):active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Focus state for accessibility */
+.wp-block-button__link.wp-element-button[href*="clubs/"]:not([class*="no-arrow"]):focus-visible {
+  outline: 2px solid #2d5f3f;
+  outline-offset: 2px;
+}
+
+/* Make sure the arrow doesn't interfere with text selection */
+.wp-block-button__link.wp-element-button[href*="clubs/"]:not([class*="no-arrow"])::after {
+  pointer-events: none;
+}

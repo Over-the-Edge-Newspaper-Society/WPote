@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Light theme (default) */
+        :root {
+            --bg: #ffffff;
+            --text: #1e293b;
+            --brand: #2d5f3f;
+            --surface: #f8fafc;
+            --border: #e2e8f0;
+        }
+        
+        /* Dark theme */
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --text: #e6eaf2;
+            --brand: #4a7c59;
+            --surface: #1e293b;
+            --border: #334155;
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+        }
+        
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+        
+        /* Toggle Styles */
+        .ote-dark-mode-toggle {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--brand);
+            border-radius: 10px;
+            color: var(--brand);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--brand);
+            color: var(--bg);
+            transform: translateY(-2px);
+        }
+        
+        .theme-toggle__icon {
+            display: flex;
+            align-items: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle__icon--moon {
+            position: absolute;
+            opacity: 0;
+            transform: rotate(180deg);
+        }
+        
+        [data-theme="dark"] .theme-toggle__icon--sun {
+            opacity: 0;
+            transform: rotate(-180deg);
+        }
+        
+        [data-theme="dark"] .theme-toggle__icon--moon {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        
+        #status {
+            margin-top: 20px;
+            padding: 10px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Dark Mode Toggle Test</h1>
+        
+        <p>This is a standalone test of the dark mode toggle functionality.</p>
+        
+        <div class="ote-dark-mode-toggle">
+            <button type="button" class="theme-toggle" id="darkModeToggle">
+                <span class="theme-toggle__icon theme-toggle__icon--sun">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                    </svg>
+                </span>
+                <span class="theme-toggle__icon theme-toggle__icon--moon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+                    </svg>
+                </span>
+                <span>Toggle Theme</span>
+            </button>
+        </div>
+        
+        <div id="status"></div>
+        
+        <div style="margin-top: 20px;">
+            <p><strong>Instructions for WordPress:</strong></p>
+            <ol>
+                <li>If this works, copy the JavaScript logic to your WordPress theme</li>
+                <li>Use the shortcode <code>[dark_mode_toggle]</code> in your WordPress posts/pages</li>
+                <li>Make sure your theme's CSS includes the dark theme variables</li>
+            </ol>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize theme
+        (function() {
+            function getCookie(name) {
+                const value = "; " + document.cookie;
+                const parts = value.split("; " + name + "=");
+                if (parts.length === 2) return parts.pop().split(";").shift();
+                return null;
+            }
+            
+            function getSystemTheme() {
+                return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            
+            function updateStatus() {
+                const html = document.documentElement;
+                const current = html.getAttribute('data-theme') || 'light';
+                const stored = getCookie('ote_theme') || 'none';
+                const system = getSystemTheme();
+                
+                document.getElementById('status').innerHTML = `
+                    Current theme: ${current}<br>
+                    Stored preference: ${stored}<br>
+                    System preference: ${system}<br>
+                    Cookie value: ${document.cookie.includes('ote_theme') ? 'set' : 'not set'}
+                `;
+            }
+            
+            // Initialize on load
+            const storedTheme = getCookie('ote_theme') || 'light';
+            const resolvedTheme = storedTheme === 'system' ? getSystemTheme() : storedTheme;
+            
+            document.documentElement.setAttribute('data-theme', resolvedTheme);
+            
+            // Set up toggle
+            const toggle = document.getElementById('darkModeToggle');
+            if (toggle) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Toggle clicked!');
+                    
+                    const html = document.documentElement;
+                    const current = html.getAttribute('data-theme') || 'light';
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    
+                    console.log('Switching from', current, 'to', next);
+                    
+                    // Apply immediately
+                    html.setAttribute('data-theme', next);
+                    
+                    // Save to cookie
+                    document.cookie = `ote_theme=${next}; path=/; max-age=2592000`;
+                    
+                    updateStatus();
+                });
+            }
+            
+            // Initial status update
+            setTimeout(updateStatus, 100);
+        })();
+    </script>
+</body>
+</html>

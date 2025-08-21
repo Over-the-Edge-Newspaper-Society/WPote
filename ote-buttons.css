@@ -1,0 +1,147 @@
+/**
+ * OTE Custom Button Styles for WordPress Block Editor
+ * Adds OTE Primary, OTE Ghost, and OTE Outline button variations
+ */
+
+/* CSS Variables from OTE theme */
+:root {
+  --ote-brand: #2d5f3f;
+  --ote-brand-light: #336847;
+  --ote-brand-dark: #1e3d28;
+  --ote-brand-lighter: #4a7c59;
+  --ote-text-light: #ffffff;
+  --ote-border-light: #cbd5e1;
+  --ote-trans-fast: 160ms cubic-bezier(.2,.6,.2,1);
+  --ote-trans-med: 240ms cubic-bezier(.2,.6,.2,1);
+}
+
+/* Base button reset for OTE styles */
+.wp-block-button.is-style-ote-primary .wp-block-button__link,
+.wp-block-button.is-style-ote-ghost .wp-block-button__link,
+.wp-block-button.is-style-ote-outline .wp-block-button__link {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  transition: transform var(--ote-trans-med), 
+              background var(--ote-trans-med), 
+              color var(--ote-trans-med), 
+              border-color var(--ote-trans-med), 
+              box-shadow var(--ote-trans-med),
+              filter var(--ote-trans-med) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  position: relative !important;
+  line-height: 1.5 !important;
+}
+
+/* ================== OTE PRIMARY BUTTON ================== */
+.wp-block-button.is-style-ote-primary .wp-block-button__link {
+  background: linear-gradient(180deg, var(--ote-brand-light), var(--ote-brand)) !important;
+  border: 1px solid var(--ote-brand-dark) !important;
+  color: var(--ote-text-light) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12) !important;
+}
+
+.wp-block-button.is-style-ote-primary .wp-block-button__link:hover {
+  filter: brightness(1.05) !important;
+  box-shadow: 0 12px 32px rgba(0,0,0,.18) !important;
+  transform: translateY(-1px) !important;
+}
+
+.wp-block-button.is-style-ote-primary .wp-block-button__link:active {
+  transform: translateY(1px) scale(0.99) !important;
+}
+
+/* Add arrow icon to OTE Primary buttons with "News" in the text */
+.wp-block-button.is-style-ote-primary .wp-block-button__link::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+/* ================== OTE GHOST BUTTON ================== */
+.wp-block-button.is-style-ote-ghost .wp-block-button__link {
+  background: transparent !important;
+  border: 1px solid rgba(45, 95, 63, 0.3) !important;
+  color: var(--ote-brand) !important;
+}
+
+/* Ghost button on dark/hero backgrounds */
+.has-background .wp-block-button.is-style-ote-ghost .wp-block-button__link,
+[style*="background"] .wp-block-button.is-style-ote-ghost .wp-block-button__link {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: var(--ote-text-light) !important;
+}
+
+.wp-block-button.is-style-ote-ghost .wp-block-button__link:hover {
+  background: rgba(45, 95, 63, 0.08) !important;
+  transform: translateY(-1px) !important;
+  border-color: var(--ote-brand) !important;
+}
+
+.has-background .wp-block-button.is-style-ote-ghost .wp-block-button__link:hover,
+[style*="background"] .wp-block-button.is-style-ote-ghost .wp-block-button__link:hover {
+  background: rgba(0, 0, 0, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* ================== OTE OUTLINE BUTTON ================== */
+.wp-block-button.is-style-ote-outline .wp-block-button__link {
+  background: transparent !important;
+  border: 1px solid var(--ote-border-light) !important;
+  color: var(--ote-brand) !important;
+}
+
+.wp-block-button.is-style-ote-outline .wp-block-button__link:hover {
+  background: rgba(45, 95, 63, 0.05) !important;
+  border-color: var(--ote-brand) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ================== FOCUS STATES ================== */
+.wp-block-button.is-style-ote-primary .wp-block-button__link:focus-visible,
+.wp-block-button.is-style-ote-ghost .wp-block-button__link:focus-visible,
+.wp-block-button.is-style-ote-outline .wp-block-button__link:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(45, 95, 63, 0.3) !important;
+}
+
+/* ================== BLOCK EDITOR PREVIEW ================== */
+.editor-styles-wrapper .wp-block-button.is-style-ote-primary .wp-block-button__link,
+.editor-styles-wrapper .wp-block-button.is-style-ote-ghost .wp-block-button__link,
+.editor-styles-wrapper .wp-block-button.is-style-ote-outline .wp-block-button__link {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 640px) {
+  .wp-block-button.is-style-ote-primary .wp-block-button__link,
+  .wp-block-button.is-style-ote-ghost .wp-block-button__link,
+  .wp-block-button.is-style-ote-outline .wp-block-button__link {
+    padding: 12px 24px !important;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ================== BUTTON GROUP STYLING ================== */
+/* When buttons are in a group, add proper spacing */
+.wp-block-buttons .wp-block-button.is-style-ote-primary,
+.wp-block-buttons .wp-block-button.is-style-ote-ghost,
+.wp-block-buttons .wp-block-button.is-style-ote-outline {
+  margin: 0 !important;
+}
+
+.wp-block-buttons:has(.is-style-ote-primary, .is-style-ote-ghost, .is-style-ote-outline) {
+  gap: 12px !important;
+}
