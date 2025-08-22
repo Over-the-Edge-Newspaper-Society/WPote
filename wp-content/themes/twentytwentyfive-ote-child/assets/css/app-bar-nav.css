@@ -492,7 +492,7 @@ header.ote-app-bar-nav .wp-block-group.alignfull {
   left: 0;
   right: 0;
   display: none; /* Hidden by default, shown on mobile */
-  grid-template-columns: repeat(3, 1fr); /* Only 3 items: Home, News, Events */
+  grid-template-columns: repeat(4, 1fr); /* 4 items: Home, News, Clubs, Events */
   border-top: 1px solid var(--app-border);
   background: var(--app-surface);
   /* Frosted glass effect like top nav */
@@ -500,7 +500,9 @@ header.ote-app-bar-nav .wp-block-group.alignfull {
   -webkit-backdrop-filter: blur(12px) saturate(1.1);
   backdrop-filter: blur(12px) saturate(1.1);
   z-index: 100;
-  padding: env(safe-area-inset-bottom) 0 0 0; /* Handle iPhone bottom safe area */
+  padding: 0; /* Remove padding, handle safe area in link items */
+  min-height: 60px; /* Ensure minimum height */
+  height: calc(60px + env(safe-area-inset-bottom)); /* Total height with safe area */
 }
 
 @media (max-width: 899px) {
@@ -513,13 +515,16 @@ header.ote-app-bar-nav .wp-block-group.alignfull {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start; /* Align content to top */
   gap: 4px;
-  padding: 10px 6px 14px 6px; /* Extra bottom padding for safe area */
+  padding: 10px 6px 10px 6px; /* Equal padding top and bottom */
+  padding-bottom: calc(10px + env(safe-area-inset-bottom)); /* Add safe area to bottom padding */
   color: var(--app-text-sec);
   text-decoration: none;
   transition: color var(--app-trans-fast), background var(--app-trans-fast);
   font-size: 12px;
   font-weight: 500;
+  height: 100%; /* Take full height of parent */
 }
 
 .bottom-nav__link:hover,
